@@ -231,7 +231,7 @@ a {
     background: white; }
     .menu .menu__item.opened .menu__item__bg {
       transition: 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
-      transform: scale(2); }
+      transform: scale(2.5); }
 
 .move-up {
   top: -100vh !important; }
