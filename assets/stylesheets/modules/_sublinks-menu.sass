@@ -1,0 +1,66 @@
+.sublinks-menu
+  bottom: 0
+  +hidden-transition-content
+  left: 0
+  position: absolute
+  text-align: center
+  top: 94px
+  width: 100%
+  +transition
+
+  &.-active
+    +visible-transition-content
+
+    a
+      +visible-transition-content
+
+  > a
+    +hidden-transition-content
+    +font-family-roboto-condensed
+    color: #fff
+    display: block
+    font-weight: 300
+    left: 0
+    padding: 10px
+    position: absolute
+    text-align: center
+    text-transform: capitalize
+    top: 0
+    width: 100%
+
+    @for $i from 1 through 16
+      &.sublinks-menu-option-#{$i}
+        transform: translateY(44px * ($i - 1))
+        +transition($delay : (0.18s + ($i * 0.03)))
+
+    span
+      position: relative
+
+      &:before
+        +pseudo
+        border-bottom: 1px solid color(purple)
+        bottom: 0
+        top: auto
+        transform: translateY(0)
+        width: 100%
+        +transition
+
+    &:hover span:before
+      border-bottom: 1px solid #fff
+      transform: translateY(4px)
+
+.sublinks-menu-close
+  background: none
+  border: 0
+  color: #fff
+  font-size: 12px
+  left: 0
+  letter-spacing: 0.1em
+  opacity: 0.3
+  padding: 1em
+  position: absolute
+  text-align: center
+  text-transform: uppercase
+  top: -84px
+  width: 100%
+  +transition

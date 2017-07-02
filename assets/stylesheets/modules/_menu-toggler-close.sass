@@ -1,0 +1,57 @@
+.menu-toggler-close
+  background: none
+  border: 0
+  font-size: 16px
+  height: $page-header-height
+  font-weight: 300
+  left: 0
+  line-height: $page-header-height
+  padding-right: 20px
+  position: absolute
+  text-transform: uppercase
+  top: 0px
+  width: 90px
+  z-index: 99
+
+  &:hover
+    i:after,
+    i:before
+      background: color(purple, lightest)
+
+  .text
+    display: none
+
+    +bp-notebook
+      color: #fff
+      display: block
+      left: 4px
+      margin: 0
+      padding: 0
+      position: absolute
+      text-align: center
+      top: 54px
+      width: 100%
+
+  i
+    &,
+    &:after,
+    &:before
+      border-radius: 2px
+      display: block
+      height: 1px
+      left: 20px
+      position: absolute
+      top: 40px
+      +transition
+      width: 60px
+
+    &:after,
+    &:before
+      +pseudo
+      background: #fff
+
+    &:after
+      transform: rotate(45deg)
+
+    &:before
+      transform: rotate(-45deg)

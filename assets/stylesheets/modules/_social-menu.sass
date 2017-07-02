@@ -1,0 +1,74 @@
+.social-menu
+  +hidden-transition-content
+  left: 0
+  padding-bottom: 20px
+  position: absolute
+  text-align: center
+  top: 590px
+  width: 100%
+
+  +bp-tablet
+    top: 800px
+
+  +bp-main-menu
+    top: 660px
+
+  .page-footer &,
+  .-active-mobile-menu &
+    transition: opacity 0.1s ease 0.5s
+    +visible-transition-content
+
+  .page-footer &
+    padding: 10px 0 30px
+    position: relative
+    top: auto
+    width: 100%
+
+  > a
+    display: inline-block
+    padding: 6px
+    position: relative
+
+    .page-footer &
+      background: #fff
+      border-radius: 40px
+      height: 40px
+      line-height: 36px
+      margin-left: 4px
+      margin-right: 4px
+      width: 40px
+
+      &:first-child
+        margin-left: 0
+
+      &:last-child
+        margin-right: 0
+
+    &:hover svg
+      fill: #fff
+
+    @each $social-network, $socal-color in $social-colors
+      &.social-menu-network-#{$social-network}:hover
+        background: $socal-color
+
+        svg
+          fill: #fff
+
+    svg
+      fill: color(purple, light)
+      +transition
+
+      .page-footer &
+        fill: color(blue)
+
+.social-menu
+  .sprite
+    position: relative
+
+    svg
+      height: 26px
+      width: 26px
+
+      .page-footer &
+        height: 20px
+        width: 20px

@@ -1,0 +1,51 @@
+.staff-search
+  margin: 40px auto 0
+  position: relative
+
+  +bp-tablet
+    width: 60%
+
+.staff-search-input
+  background: #fff
+  border-radius: 2px
+  border: 0
+  font-size: 18px
+  font-weight: 300
+  padding: 16px 86px 16px 20px
+  width: 100%
+
+  +placeholder
+    color: color(grey, dark)
+
+.staff-search-button
+  background: color(grey, lighter)
+  border-bottom-right-radius: 2px
+  border-top-right-radius: 2px
+  border: 0
+  padding: 17px 20px 14px
+  position: absolute
+  right: -1px
+  top: 0
+  +transition
+
+  &:hover
+    background: color(blue, dark)
+
+    svg
+      fill: #fff
+
+  +bp-tablet
+    padding: 17px 30px 14px
+
+  svg
+    fill: color(blue)
+    height: 18px !important
+    width: 24px !important
+
+ul.-staff-search-list > li
+  padding-bottom: 45px
+  padding-top: 45px
+
+.staff-search-photo
+  border-radius: 50%
+  margin: -111px auto 40px

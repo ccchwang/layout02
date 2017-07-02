@@ -1,0 +1,121 @@
+.update-bar
+  +row
+  background: color(purple, dark)
+  color: #fff
+  +hidden-transition-content
+  max-height: 0px
+  padding: 0 20px
+  text-align: center
+  transition: all 0.3s ease-in-out
+
+  +bp-notebook
+    padding: 0 40px
+
+  &.-active
+    padding: 20px
+    max-height: 420px
+    +visible-transition-content
+
+    +bp-notebook
+      max-height: 260px
+      padding: 20px 40px
+
+  +bp-notebook
+    text-align: left
+
+    .wrap
+      padding-right: 50px
+
+  a
+    color: color(blue, light)
+
+    &:hover,
+    &:focus
+      text-decoration: underline
+
+  h2
+    +font-family-roboto-condensed
+    color: color(grey, light)
+    font-size: 20px
+    letter-spacing: 3px
+    margin-bottom: 10px
+    text-transform: uppercase
+
+    +bp-notebook
+      left: 0
+      position: absolute
+      top: 4px
+
+  p
+    font-size: 14px
+    margin-bottom: 0
+
+    +bp-notebook
+      font-size: 18px
+      padding-left: 180px
+
+    a
+      display: inline-block
+
+.update-bar-close
+  background: none
+  border: 0
+  position: absolute
+  right: 0
+  top: 0
+  height: 30px
+  width: 30px
+
+  +bp-notebook
+    height: 40px
+    width: 40px
+
+  i
+    &:hover
+      &:after,
+      &:before
+        background: color(purple, lighter)
+
+    &,
+    &:after,
+    &:before
+      border-radius: 2px
+      display: block
+      height: 1px
+      left: 0
+      position: absolute
+      top: 10px
+      +transition
+      width: 30px
+
+      +bp-notebook
+        top: 15px
+        width: 40px
+
+    &:after,
+    &:before
+      +pseudo
+      background: #fff
+
+    &:after
+      transform: rotate(45deg)
+
+    &:before
+      transform: rotate(-45deg)
+
+
+.update-bar.-alt-color
+  background: color(teal, light)
+  color: color(gray, darker)
+
+  h2,
+    color: color(gray, dark)
+
+  .update-bar-close i
+    &:before,
+    &:after
+      background: color(gray, dark)
+
+  a
+    color: color(gray, darker)
+    text-decoration: underline

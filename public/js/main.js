@@ -1,43 +1,21 @@
-$(document).ready(function () {
+//HELPER FUNCTIONS
+const selectElements = function (selector) {
+  let nodes = document.querySelectorAll(selector)
+  return [].slice.call(nodes)
+};
 
-  let $tabsContainer = $(".tabs"),
-      $tabIndicator = $("#tab-indicator");
+const registerClick = function(item) {
+  item.addEventListener('click', function() {
+    item.className += ' opened';
 
-  //add click handlers to each tab
-  ['bio', 'experience', 'reviews', 'resources'].forEach(tab => {
-    let $newTab = $(`.tab-link.${tab}`);
+    selectElements('.try').forEach(i => i.className += " try2")
 
-    $newTab.click(() => {
-      let $currentTab = $("[aria-selected='true']"),
-          currentTabPosition = $currentTab.offset().left;
-
-      //turn current tab off
-      $currentTab.attr("aria-selected", "false")
-
-      //turn the clicked one on
-      $newTab.attr("aria-selected", "true")
-
-      //animate transition from one tab to another
-      handleTransitionAnim($newTab, currentTabPosition, tab);
-    })
+    selectElements('.try3').forEach(i => i.className += " try4")
   })
+}
 
+////
 
-  function handleTransitionAnim($newTab, currentTabPosition, tab) {
-    let textPosition = $newTab.offset().left,
-        tabsPosition = $tabsContainer.offset().left,
-        distance = textPosition - tabsPosition,
-        //direction that tab is moving towards will influence which animation gets triggered
-        direction = currentTabPosition < textPosition ? 'right' : 'left';
+const menuItem = selectElements('.menu__item');
 
-    //hide content that's currently being shown
-    $('.show-content').removeClass('show-content').css('animation', `${direction}-hide 0.3s ease-in-out`);
-
-    //show content that matches clicked tab
-    $(`.content.${tab}`).addClass('show-content').css('animation', `${direction}-show 0.3s ease-in-out`);
-
-    //move indicator and scale it to fit tab
-    $tabIndicator.css('transform', `translateX(${distance}px) scaleX(${($newTab.width() + 19) * 0.01})`);
-  }
-});
-
+menuItem.forEach(item => {registerClick(item)})

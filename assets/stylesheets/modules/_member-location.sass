@@ -1,0 +1,53 @@
+.member-location
+  background: #fff
+  border-radius: 4px
+  overflow: hidden
+  position: relative
+
+.member-location-header
+  background: #fff
+  position: relative
+
+  .dark-overlay:after,
+  .dark-overlay:before
+    border-top-left-radius: 4px
+    border-top-right-radius: 4px
+
+.member-location-title
+  color: #fff
+  bottom: 0
+  +font-family-roboto
+  font-size: 24px
+  font-weight: bold
+  margin-bottom: 0
+  padding: 20px
+  position: absolute
+  z-index: 9
+
+.member-location-others
+  font-size: 14px
+  padding: 10px 20px
+
+  +bp-tablet
+    font-size: 16px
+
+  +bp-cinema
+    font-size: 16px
+
+  a
+    +default-link
+    font-weight: 300
+    padding-left: 20px
+    position: relative
+
+    &:first-child
+      padding-left: 0
+
+      &:before
+        display: none
+
+    &:before
+      color: color(grey, dark)
+      content: "•"
+      left: 10px
+      position: absolute

@@ -1,0 +1,82 @@
+.hexagon-stats
+  +inline-list
+  margin-bottom: -40px
+  margin-top: -40px
+  text-align: center
+
+  > li
+    margin-top: -80px
+    overflow: hidden
+    position: relative
+    text-align: center
+    vertical-align: top
+    width: 100%
+
+    &:first-child
+      margin-top: 0
+
+    +bp-tablet
+      margin-top: 0
+      width: 33.33%
+
+    &:nth-child(1)
+      color: color(purple)
+
+      svg
+        stroke: color(purple)
+
+    &:nth-child(2)
+      color: color(green)
+
+      svg
+        stroke: color(green)
+
+    &:nth-child(3)
+      color: color(orange)
+
+      svg
+        stroke: color(orange)
+
+    &.-white
+      color: #fff
+
+      svg
+        stroke: #fff
+
+    strong
+      display: block
+      font-size: 48px
+      font-weight: 300
+      line-height: 1
+
+      +bp-notebook
+        font-size: 72px
+
+    p
+      +absolute-center-y
+      display: block
+      font-weight: 300
+      padding: 0px 30px;
+      text-transform: lowercase
+      width: 100%
+
+      +bp-notebook
+        padding: 0px 60px;
+
+    .sprite
+      display: block
+      top: 0
+      width: 100%
+
+    svg
+      fill: transparent
+      height: 460px
+      left: -20%
+      position: relative
+      stroke-width: 6px
+      width: 140%
+
+      +bp-cinema
+        height: 500px
+        left: -35%
+        width: 170%

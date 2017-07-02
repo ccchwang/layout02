@@ -1,0 +1,85 @@
+.figure-callout
+  +row
+  text-align: center
+
+.figure-callout-figure
+  display: block
+  margin: 0 auto
+  overflow: hidden
+  position: relative
+
+  img
+    margin: 0 auto
+    width: 100%
+
+  .article-simple &
+    margin-bottom: 30px
+
+    +bp-tablet
+      margin-bottom: 60px
+
+.figure-callout-caption
+  bottom: 0
+  color: #fff
+  font-size: 14px
+  font-weight: bold
+  line-height: 1.25
+  padding: 0 40px 10px
+  position: absolute
+  text-align: center
+  width: 100%
+  z-index: 4
+
+  +bp-phablet
+    font-size: 18px
+    padding: 40px
+
+  +bp-tablet
+    font-size: 20px
+    padding: 60px
+
+  +bp-desktop
+    font-size: 36px
+    padding: 80px
+
+.figure-callout-icon
+  display: none
+
+  +bp-tablet
+    bottom: -28px
+    display: block
+    height: 70px
+    left: 50%
+    position: absolute
+    transform: translateX(-50%)
+    width: 70px
+    z-index: 3
+
+  +bp-desktop
+    bottom: -58px
+    height: 115px
+    width: 100px
+
+  .-hexagon-edge,
+  .-church-symbol
+    left: 0
+    position: absolute
+    right: 0
+    top: 0
+
+    svg
+      width: 100%
+
+  .-church-symbol
+    +absolute-center
+    height: 28px
+
+    +bp-desktop
+      height: 50px
+
+    svg
+      fill: #fff
+      width: 17px
+
+      +bp-desktop
+        width: 21px

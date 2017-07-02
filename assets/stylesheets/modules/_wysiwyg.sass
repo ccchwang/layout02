@@ -1,0 +1,83 @@
+.wysiwyg
+  li,
+  p
+    font-size: 18px
+    font-weight: 300
+    line-height: 1.75
+
+    a
+      font-weight: 700
+      color: color(blue)
+
+      &:hover
+        text-decoration: underline
+
+  li
+    position: relative
+
+    &:before
+      color: color(purple)
+      position: absolute
+      top: 0
+
+    &:last-child
+      margin-bottom: 1em
+
+  ul,
+  ol
+    list-style: none
+    padding-left: 60px
+    padding-right: 30px
+
+  ul li:before
+      color: color(purple)
+      content: "•"
+      left: -28px
+
+  ol
+    counter-reset: ordered-counter
+
+    li:before
+      content: counter(ordered-counter, decimal-leading-zero)
+      counter-increment: ordered-counter
+      left: -36px
+
+  h1, h2, h3, h4, h5
+    color: color(purple)
+
+  h1
+    font-size: 30px
+    text-transform: none
+
+  h2
+    font-size: 24px
+    text-transform: uppercase
+
+  h3
+    font-size: 24px
+    text-transform: none
+
+  h4
+    font-size: 18px
+    text-transform: uppercase
+
+  img
+    +bp-tablet
+      left: 50%
+      margin: 50px auto
+      max-width: 120%
+      position: relative
+      transform: translateX(-50%)
+
+    +bp-notebook
+      max-width: 140%
+
+  blockquote
+    +font-family-roboto
+    border-left: 6px solid color(purple)
+    font-weight: 300
+    font-weight: 300
+    padding-left: 40px
+
+  iframe
+    max-width: 100%

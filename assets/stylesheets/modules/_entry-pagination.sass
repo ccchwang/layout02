@@ -1,0 +1,229 @@
+.entry-pagination
+  +row
+
+  &.-simple ul
+    +bp-tablet
+      &:before,
+      &:after
+        +pseudo
+        height: 100%
+        left: 50%
+        width: 1px
+        z-index: 11
+
+      &:before
+        background: color(blue, dark)
+        transform: skewX(-30deg)
+
+      &:after
+        background: color(blue, light)
+        transform: skewX(30deg)
+
+    &:hover li
+      &:hover
+        a
+          z-index: 99
+
+        .skewed
+          z-index: 4
+
+        &.-prev .arrow-icon
+          transform: translateY(-50%) translateX(-5px);
+
+        &.-next .arrow-icon
+          transform: translateY(-50%) translateX(5px);
+
+      a
+        z-index: 11
+
+      .skewed
+        z-index: 10
+
+    li
+      &.-prev .skewed
+        right: -1px
+        border-right: 1px solid color(blue, light)
+
+      &.-next .skewed
+        left: 0px
+        border-left: 1px solid color(blue, light)
+
+      &:hover
+        .skewed
+          background: color(blue, dark)
+
+      .skewed
+        display: none
+
+        +bp-tablet
+          background: color(blue)
+          display: block
+          height: 100%
+          position: absolute
+          top: 0
+          transform: skewX(30deg)
+          +transition
+          width: 100px
+          z-index: 3
+
+  &.-simple.-purple ul
+    &:before
+      background: color(purple, dark)
+
+    &:after
+      background: color(purple, light)
+
+    li
+      &.-prev .skewed
+        border-right: 1px solid color(purple, light)
+
+      &.-next .skewed
+        border-left: 1px solid color(purple, light)
+
+      &:hover
+        .skewed
+          background: color(purple, dark)
+
+      .skewed
+        +bp-tablet
+          background: color(purple)
+
+  &.-simple.-blue ul
+    &:before
+      background: color(blue, dark)
+
+    &:after
+      background: color(blue, light)
+
+    li
+      &.-prev .skewed
+        border-right: 1px solid color(blue, light)
+
+      &.-next .skewed
+        border-left: 1px solid color(blue, light)
+
+      &:hover
+        .skewed
+          background: color(blue, dark)
+
+      .skewed
+        +bp-tablet
+          background: color(blue)
+
+.entry-pagination-list
+  +list
+  align-items: stretch
+  display: flex
+  flex-wrap: wrap
+
+  .-blue &
+    background-color: color(blue)
+
+  .-purple &
+    background-color: color(purple)
+
+  +bp-phablet
+    +inline-list
+
+  li
+    background-position: 50% 50%
+    background-size: cover
+    position: relative
+    text-align: center
+    vertical-align: middle
+    +transition
+
+    .-simple.-blue &:hover
+      background: color(blue, dark)
+
+    .-simple.-purple &:hover
+      background: color(purple, dark)
+
+    &:after
+      +pseudo
+      +fill
+      z-index: 3
+
+      .-blue &
+        background-color: rgba(color(blue), 0.8)
+
+      .-purple &
+        background-color: rgba(color(purple), 0.8)
+
+      .-simple &
+        display: none
+
+    .arrow-icon
+      +transition
+
+      svg
+        display: none
+
+        +bp-tablet
+          display: block
+          fill: #fff
+          height: 33px
+          width: 36px
+
+    &.-prev
+      width: 100%
+
+      .arrow-icon
+        +absolute-center-y
+        left: 20px
+
+      +bp-tablet
+        text-align: left
+        width: 50%
+
+        .-simple & a
+          padding: 40px 40px 40px 80px
+
+    &.-next
+      width: 100%
+
+      .arrow-icon
+        +absolute-center-y
+        right: 20px
+
+      +bp-tablet
+        text-align: right
+        width: 50%
+
+        .-simple & a
+          padding: 40px 80px 40px 40px
+
+    a
+      color: #fff
+      display: block
+      display: flex
+      flex-direction: column
+      justify-content: center
+      overflow: hidden
+      padding: 40px
+      position: relative
+      z-index: 4
+
+      +bp-tablet
+        padding: 80px
+
+      .text-label
+        border-bottom: none
+        color: #fff
+        display: block
+
+        .-simple &
+          font-size: 14px
+          margin-bottom: 12px
+
+      strong
+        +font-family-roboto
+        display: block
+        font-size: 36px
+        font-weight: 700
+        line-height: 1.25
+        position: relative
+        z-index: 4
+
+        .-simple &
+          font-size: 24px

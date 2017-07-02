@@ -1,0 +1,38 @@
+.advocacy-description
+  color: #fff
+  padding: 20px
+  text-align: center
+
+  +bp-tablet
+    padding: 60px
+
+  +bp-notebook
+    padding: 100px
+
+.advocacy-cta
+  +row
+  background: color(blue)
+  border-top: 5px solid color(blue, light)
+  color: #fff
+
+  &.-no-top-border
+    border-top: none
+
+.advocacy-cta-col
+  +row
+  padding: 20px
+
+  +bp-tablet
+    padding: 40px
+
+  &.-first
+    +bp-tablet
+      width: 60%
+
+  &.-second
+    text-align: center
+
+    +bp-tablet
+      +absolute-center-y
+      right: 0
+      width: 40%

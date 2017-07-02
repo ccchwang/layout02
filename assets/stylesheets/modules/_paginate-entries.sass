@@ -1,0 +1,73 @@
+.paginate-entries-row
+  +row
+  text-align: center
+  margin-top: 50px
+
+  +bp-tablet
+    margin-top: 100px
+
+.paginate-entries
+  +inline-list
+  display: inline-block
+  +font-family-roboto-condensed
+  font-weight: 300
+  margin: 0 auto
+  text-align: center
+  text-transform: uppercase
+  width: auto
+
+  +bp-tablet
+    +inline-list
+    border-radius: 2px
+    border: 1px solid color(purple)
+    display: inline-block
+    text-align: center
+
+  > li
+    border-radius: 2px
+    overflow: hidden
+    text-align: center
+
+    +bp-tablet
+      border-radius: 0
+      height: 60px
+      line-height: 60px
+      width: 60px
+
+      &.paginate-next
+        width: auto
+
+        a
+          padding: 0 40px
+
+    &.-current
+      background: color(purple)
+      color: #fff
+      padding: 2px 12px
+
+      +bp-tablet
+        padding: 0
+
+      &:hover
+        background: color(purple, dark)
+
+      a
+        color: #fff
+        padding: 0
+
+    &:last-child a
+      border-right: 0
+
+    a
+      color: color(purple)
+      display: block
+      padding: 2px 12px
+      +transition
+
+      +bp-tablet
+        border-right: 1px solid color(purple)
+        padding: 0
+
+      &:hover
+        background: color(blue)
+        color: #fff

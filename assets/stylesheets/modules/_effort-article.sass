@@ -1,0 +1,77 @@
+.effort-article
+  display: inline-block
+  max-width: 100%
+  position: relative
+  text-align: left
+
+.effort-article-link
+  display: block
+  margin-bottom: 0
+
+  figure:before
+    +transition
+
+  &:hover
+    .effort-article-title
+      text-decoration: underline
+
+    .effort-article-figure:before
+      background: rgba(#000, 0.2)
+
+.effort-article-header
+  bottom: 6px
+  color: #fff
+  padding: 20px
+  position: absolute
+  z-index: 4
+
+.effort-article-title
+  +font-family-roboto
+  font-size: 24px
+  font-weight: 700
+  margin-bottom: 0
+
+  +bp-tablet
+    font-size: 30px
+
+  @media (min-width: 530px) and (max-width: 650px)
+    font-size: 20px
+
+.effort-article-figure
+  background: color(purple)
+  border-radius: 4px
+  display: inline-block
+  margin: 0 auto
+  overflow: hidden
+  position: relative
+  max-width: 100%
+
+  img
+    width: 600px
+
+.effort-article-listing
+  +list
+  line-height: 1
+
+  +bp-at(530px)
+    +inline-list
+    margin-top: 20px
+
+  > li
+    margin: 20px auto 0
+    width: 80%
+
+    .effort-article
+      height: 180px
+      overflow: hidden
+
+    +bp-at(530px)
+      margin-bottom: -10px
+      width: 32%
+
+      .effort-article
+        height: auto
+
+      &:nth-child(3n + 2)
+        margin-left: 2%
+        margin-right: 2%

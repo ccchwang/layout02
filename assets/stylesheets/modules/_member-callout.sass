@@ -1,0 +1,83 @@
+.member-callout
+  +row
+  background: color(grey, lighter)
+  color: color(grey, dark)
+  margin-top: 60px
+
+.member-callout-col
+  +row
+
+  +bp-tablet
+    width: 50%
+
+  &.-info
+    padding: 40px
+
+    +bp-tablet
+      float: right
+
+    +bp-desktop
+      padding: 80px
+
+  &.-map
+    height: 200px
+    position: relative
+    width: 100%
+
+    +bp-tablet
+      height: 100%
+      left: 0
+      position: absolute
+      top: 0
+      width: 50%
+
+    a
+      +fill
+      background-position: 50% 50%
+      background-size: cover
+      position: absolute
+
+.member-callout-contact-list
+  +inline-list
+  margin: 40px 0
+
+  li
+    padding-right: 40px
+    vertical-align: top
+    width: 100%
+
+    &:last-child
+      padding-top: 30px
+
+    +bp-desktop
+      width: 50%
+
+      &:last-child
+        padding-top: 0
+
+      .member-callout-items &
+        width: 100%
+
+        &:last-child
+          padding-top: 40px
+
+.member-callout-header
+  +font-family-roboto
+  font-size: 24px
+  font-weight: bold
+
+.member-callout-items
+  +list
+  margin-top: 40px
+  text-align: center
+
+  +bp-desktop
+    +inline-list
+    margin-top: 80px
+
+    > li
+      padding-left: 40px
+      padding-right: 40px
+      text-align: left
+      vertical-align: top
+      width: 33.33%

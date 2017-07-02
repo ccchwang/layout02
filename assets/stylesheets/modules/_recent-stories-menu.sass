@@ -1,0 +1,26 @@
+.recent-stories-menu
+  display: none
+
+  +bp-tablet
+    background: #fff
+    bottom: 0
+    display: block
+    padding: 30px
+    position: absolute
+    right: 0
+    top: 0
+    transform: translate3d(0,0,0)
+    width: 40%
+    +touch-scroll
+
+  +bp-notebook
+    width: 30%
+
+.recent-stories-menu-list
+  width: 100%
+
+  > li
+    padding: 0 0 20px
+
+    a
+      display: block

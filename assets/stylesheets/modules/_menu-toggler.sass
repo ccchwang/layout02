@@ -1,0 +1,115 @@
+.menu-toggler
+  background: #fff
+  border: 0
+  color: #fff
+  font-size: 16px
+  font-weight: 300
+  height: $page-header-height
+  left: 0
+  line-height: 1
+  position: fixed
+  text-transform: uppercase
+  transform: translate3d(0,0,0)
+  +transition($duration : 0.3s)
+  top: 0
+  width: 70px
+  z-index: 111
+
+  +bp-main-menu
+    background: color(purple)
+    border-radius: 4px
+    height: 43px
+    left: 10px
+    top: 10px
+    width: 124px
+
+  &:hover
+    color: color(purple, dark)
+
+    +bp-main-menu
+      color: #fff
+      background: color(purple, dark)
+
+    i,
+    i:after,
+    i:before
+      color: color(purple, dark)
+
+      +bp-main-menu
+        color: #fff
+
+  .-active-mobile-menu &
+    color: #fff
+    background: transparent
+    transition: background 0s 0s ease
+
+    i,
+    i:after,
+    i:before
+      background: #fff
+
+  .default-text,
+  .active-text
+    display: none
+
+    +bp-main-menu
+      display: block
+      position: absolute
+      right: 20px
+      top: 16px
+      transition: transform 0.25s $transition-function, opacity $transition-duration $transition-function
+
+  +bp-main-menu
+    .default-text
+      transform: translateY(0px)
+      +visible-transition-content
+
+      .-active-mobile-menu &
+        +hidden-transition-content
+        transform: translateY(-12px)
+
+    .active-text
+      +hidden-transition-content
+      transform: translateY(12px)
+
+      .-active-mobile-menu &
+        transform: translateY(0)
+        +visible-transition-content
+
+  i
+    &,
+    &:after,
+    &:before
+      background: color(purple)
+      border-radius: 2px
+      display: block
+      height: 1px
+      left: 20px
+      position: absolute
+      top: 31px
+      +transition($duration : 0.25s)
+      width: 21px
+
+      +bp-main-menu
+        background: #fff
+        top: 22px
+
+    .-active-mobile-menu &
+      background: none
+
+    &:after,
+    &:before
+      +pseudo
+
+    &:after
+      top: -5px
+
+      .-active-mobile-menu &
+        transform: rotate(45deg) translateX(7px)
+
+    &:before
+      bottom: -5px
+      top: auto
+
+      .-active-mobile-menu &
+        transform: rotate(-45deg) translateX(7px)

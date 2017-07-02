@@ -1,0 +1,64 @@
+body
+  // Column span
+  .padding-col-1
+    padding-left: col-width(1)
+    padding-right: col-width(1)
+
+  .padding-col-2
+    padding-left: col-width(1)
+    padding-right: col-width(1)
+
+    +bp-phablet
+      padding-left: col-width(2)
+      padding-right: col-width(2)
+
+  .padding-col-3
+    padding-left: col-width(1)
+    padding-right: col-width(1)
+
+    +bp-tablet
+      padding-left: col-width(2)
+      padding-right: col-width(2)
+
+    +bp-desktop
+      padding-left: col-width(3)
+      padding-right: col-width(3)
+
+  // Dynamic Spacing
+  @for $i from 0 through 3
+    // Padding
+    .padding-#{$i}
+      padding: #{$i}em
+
+    .padding-top-#{$i}
+      padding-top: #{$i}em
+
+    .padding-bottom-#{$i}
+      padding-bottom: #{$i}em
+
+    // Margin
+    .margin-#{$i}
+      margin: #{$i}em
+
+    .margin-top-#{$i}
+      margin-top: #{$i}em
+
+    .margin-bottom-#{$i}
+      margin-bottom: #{$i}em
+
+  // Named spacings
+  $spacing_sizes : (small : (20px, 30px, 40px), medium : (20px, 50px, 80px), large : (40px, 60px, 100px))
+  $spacing_types : (padding, margin)
+  $spacing_spots : (top, bottom)
+
+  @each $size, $parameters in $spacing_sizes
+    @each $type in $spacing_types
+      @each $spot in $spacing_spots
+        .#{$type}-#{$spot}-#{$size}
+          #{$type}-#{$spot}: nth($parameters, 1)
+
+          +bp-tablet
+            #{$type}-#{$spot}: nth($parameters, 2)
+
+          +bp-desktop
+            #{$type}-#{$spot}: nth($parameters, 3)

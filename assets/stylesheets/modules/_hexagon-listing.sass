@@ -1,0 +1,40 @@
+.hexagon-listing
+  counter-reset: ordered-counter
+  margin: 80px 0
+
+  > li
+    margin-bottom: 40px
+    min-height: 72px
+    padding-top: 80px
+    position: relative
+    text-align: center
+
+    +bp-phablet
+      margin-bottom: 20px
+      padding-left: 80px
+      padding-top: 10px
+      text-align: left
+
+    &:before
+      +pseudo
+      background-image: url("/assets/images/hexagon-list-item.png")
+      background-repeat: no-repeat
+      color: color(purple)
+      content: counter(ordered-counter, decimal)
+      counter-increment: ordered-counter
+      +font-family-roboto-condensed
+      font-size: 36px
+      font-weight: 300
+      height: 70px
+      line-height: 70px
+      text-align: center
+      width: 60px
+
+      left: 50%
+      top: 0
+      transform: translateX(-50%)
+
+      +bp-phablet
+        left: 0
+        top: 0
+        transform: translateX(0)

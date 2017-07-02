@@ -1,299 +1,34 @@
-$green: #1FB682;
+// Config
+// @import "config/colors";   // Ordering matters
+// @import "config/helpers";  // Ordering matters
+// @import "config/breakpoints";
+// @import "config/fonts";
+// @import "config/forms";
+// @import "config/grid";
+// @import "config/layout";
+// @import "config/lists";
+@import "config/transitions";
+// @import "config/typography";
+// @import "config/units";
 
-* {
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 300;
-  color: #333;
-}
-
-
-//*** HEADER & HEADSHOT
-#header {
-  position: relative;
-  height: 50vh;
-  background-image: url('../../public/img/header.jpg');
-  background-size: cover;
-  margin-bottom: 160px
-}
-
-figure {
-  position: absolute;
-  bottom: -125px;
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  img {
-    width: 175px;
-    height: 175px;
-    border-radius: 200px;
-    border: 3px solid white;
-  }
-  .headshot-name {
-    margin-top: 10px;
-    font-size: 22px
-  }
-  .headshot-title {
-    font-size: 17px
-  }
-}
+// Vendor
+@import "vendor/normalize";
 
 
-//*** MAIN SECTION
-section {
-  overflow: hidden;
-  position: relative;
-  height: 725px;
+// Base
+// @import "base/backgrounds";
+// @import "base/breakpoints";
+// @import "base/buttons";
+// @import "base/forms";
+// @import "base/grid";
+// @import "base/images";
+@import "base/layout";
+@import "base/links";
+// @import "base/lists";
+// @import "base/spacing";
+// @import "base/sprites";
+// @import "base/typography";
+// @import "base/utilities";
 
-  .tabs-container {
-    position: relative;
-    padding: 0 30px;
-
-    nav {
-      overflow-x: scroll;
-    }
-    nav::-webkit-scrollbar {
-      display: none;  // hides scrollbar on horizontal menu for Safari and Chrome
-    }
-    .tabs {
-      position: relative;
-      display: flex;
-      justify-content: space-between;
-      width: 400px;
-      border-bottom: 2px solid #e6e6e6;
-
-      .tab-link {
-        color: #757575;
-        letter-spacing: 1px;
-        padding-bottom: 15px;
-        transition: 0.15s;
-
-        //currently selected tab
-        &[aria-selected="true"] {
-          color: $green;
-          font-weight: 500;
-          text-decoration: none;
-          z-index: 20;
-        }
-      }
-      .tab-link:hover {
-        cursor: pointer;
-        text-decoration: none;
-        color: $green
-      }
-      #tab-indicator {
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        height: 4px;
-        width: 81px;
-        background-color: $green;
-        transform-origin: 0 0;
-        transition: transform .3s ease-in-out
-      }
-    }
-  }
-  //pseudo elements to add blur to ends of horizontal tabs menu
-  .tabs-container::after, .tabs-container::before {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    height: 31px;
-    width: 25px;
-    top: -10px;
-    background: white;
-    filter: blur(5px);
-  }
-
-  .tabs-container::after {
-    right: 15px;
-  }
-
-  .tabs-container::before {
-    left: 15px;
-  }
-}
-
-
-
-//*** TEXT CONTENT
-.content {
-  position: absolute;
-  padding: 15px 30px;
-  visibility: hidden;
-  margin-bottom: 25px;
-
-  h3 {
-    font-size: 22px;
-    font-weight: 300;
-    line-height: 35px;
-  }
-  p {
-    line-height: 33px
-  }
-}
-
-.show-content {
-  visibility: inherit;
-}
-
-//keyframes to animate content transitions. '-show' keyframes are for content moving into view. '-hide' keyframes are for content moving out of view.
-@keyframes right-show {
-  0% {
-    transform: translateX(600px);
-  }
-  100% {
-    transform: translateX(0px);
-  }
-}
-@keyframes right-hide {
-  0% {
-    visibility: inherit;
-    transform: translateX(0px);
-  }
-  100% {
-    transform: translateX(-600px);
-  }
-}
-@keyframes left-show {
-  0% {
-     transform: translateX(-600px);
-  }
-  100% {
-    transform: translateX(0px);
-  }
-}
-@keyframes left-hide {
-  0% {
-    visibility: inherit;
-     transform: translateX(0px);
-  }
-  100% {
-    transform: translateX(600px);
-  }
-}
-
-
-@media screen and (min-width: 375px) {
-  section {
-    .tabs-container .tabs {
-      width: 475px;
-    }
-    .tabs-container, .content {
-      padding-right: 36px;
-      padding-left: 36px;
-    }
-    .tabs-container::after, .tabs-container::before {
-      width: 35px
-    }
-  }
-}
-
-
-@media screen and (min-width: 414px) {
-  section {
-    .tabs-container, .content {
-      padding-right: 50px;
-      padding-left: 50px;
-    }
-    .content p {
-      font-size: 15px
-    }
-    .tabs-container::after, .tabs-container::before {
-      width: 45px
-    }
-  }
-}
-
-
-@media screen and (min-width: 668px) {
-  section {
-    .tabs-container .tabs {
-      width: auto;
-    }
-    .tabs-container, .content {
-      padding-right: 75px;
-      padding-left: 75px;
-    }
-    .tabs-container::after, .tabs-container::before {
-      visibility: hidden
-    }
-  }
-
-  figure {
-    .headshot-name {
-      font-size: 26px;
-    }
-    .headshot-title {
-      font-size: 18px
-    }
-  }
-
-  //redefining keyframes for bigger screens
-  @keyframes right-show {
-    0% {
-      transform: translateX(900px);
-    }
-    100% {
-      transform: translateX(0px);
-    }
-  }
-  @keyframes right-hide {
-    0% {
-      visibility: inherit;
-      transform: translateX(0px);
-    }
-    100% {
-      transform: translateX(-900px);
-    }
-  }
-  @keyframes left-hide {
-    0% {
-      visibility: inherit;
-      transform: translateX(0px);
-    }
-    100% {
-      transform: translateX(900px);
-    }
-  }
-  @keyframes left-show {
-    0% {
-      transform: translateX(-900px);
-    }
-    100% {
-      transform: translateX(0px);
-    }
-  }
-}
-
-@media screen and (min-width: 992px) {
-  #header {
-    margin-bottom: 75px;
-  }
-  figure {
-    left: 100px;
-    right: auto;
-
-    img {
-      width: 135px;
-      height: 135px;
-    }
-  }
-  section {
-    position: absolute;
-    width: 67%;
-    right: 0;
-
-    .tabs-container, .content {
-      padding-right: 100px;
-      padding-left: 50px;
-    }
-    .content {
-      padding-right: 200px;
-    }
-  }
-}
-
+// Modules
+@import "modules/sidebar-menu"

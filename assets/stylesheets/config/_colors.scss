@@ -1,0 +1,25 @@
+// Variables
+$social-colors: (
+  facebook: #3c5998,
+  twitter: #0eb1ee,
+  youtube: #c11a1a,
+  linkedin: #0d81b9,
+  flickr: #fe1a90
+);
+$colors: (
+  purple : (lighter : #edecf9, light : #8177d4, normal : #342b88, dark : #251f61, darker : #16123a),
+  blue   : (lighter : #e5f4ff, light : #42b0ff, normal : #005c9e, dark : #004475, darker : #002d4d),
+  teal   : (lighter : #eef3f7, light : #83a9c3, normal : #375972, dark : #284153, darker : #192834),
+  green  : (lighter : #f5faeb, light : #bbda71, normal : #6e8e25, dark : #4f651a, darker : #2f3d10),
+  yellow : (lighter : #fff8e6, light : #fdcf4e, normal : #fdc326, dark : #b68602, darker : #4c3801),
+  orange : (lighter : #fdf0e8, light : #f0975c, normal : #a84d10, dark : #79370b, darker : #462007),
+  red    : (lighter : #ffe6ee, light : #fe437e, normal : #a20134, dark : #7a0127, darker : #4c0018),
+  grey   : (lighter : #f2f2f3, light : #b6b7b9, normal : #7d7f82, dark : #525456, darker : #252627)
+);
+
+// Functions
+@function color($key: purple, $variant: normal) {
+  $color : map-get($colors, $key);
+
+  @return map-get($color, $variant);
+}

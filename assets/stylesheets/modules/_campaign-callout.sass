@@ -1,0 +1,42 @@
+.campaign-callout
+  +row
+  color: #fff
+  margin-bottom: 60px
+
+.campaign-callout-col
+  +row
+  overflow: hidden
+
+  +bp-tablet
+    width: 50%
+
+  &.-image
+    background-position: 50% 50%
+    background-size: cover
+    height: 200px
+
+    +bp-tablet
+      border-bottom-left-radius: 3px
+      border-top-left-radius: 3px
+      bottom: 0
+      height: 100%
+      left: 0
+      position: absolute
+      top: 0
+      width: 50%
+
+  &.-info
+    padding: 30px
+    text-align: center
+
+    +bp-tablet
+      border-bottom-right-radius: 3px
+      border-top-right-radius: 3px
+      padding: 60px
+      float: right
+
+.campaign-callout-header
+  +font-family-roboto
+  font-size: 36px
+  font-weight: 700
+  margin-bottom: 1em

@@ -1,0 +1,20 @@
+@for $i from 1 through $total-columns
+  .span-#{$i}
+    +span($i)
+
+  .offset-#{$i}
+    +offset($i)
+
+  .offset-#{$i}:not(:first-child)
+    margin-left: $column-width * $i + $column-gutter * ($i + 1) !important
+
+.span-#{$total-columns}
+  margin-left: 0
+  width: 100%
+
++bp-up-to-notebook
+  .span-notebook-full,
+  .span-notebook-full:not(:first-child)
+    float: none
+    margin-left: 0 !important
+    width: 100%

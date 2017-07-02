@@ -1,0 +1,36 @@
+.menu-toggler
+  @media(max-width: 1219px)
+    background: none
+    color: #fff
+    display: block
+    left: auto
+    right: 3px
+    top: 4px
+
+    &:hover
+      color: #fff
+
+      i,
+      i:before,
+      i:after
+        background: #fff
+
+    .-active-mobile-menu & i
+      background: none
+
+    i
+      top: 20px
+
+    i,
+    i:before,
+    i:after
+      background: #fff
+
+
+  +bp-notebook
+    i
+      top: 22px
+
+  @media(min-width: 1220px)
+    display: none
+
