@@ -23,7 +23,7 @@
     top: 0;
 
     .menu__item__bg {
-      background: url("../../public/img/f4.jpg")no-repeat left;
+      background: url("../../public/img/ff.jpg") no-repeat left;
       background-size: 130%;
       height: 100%;
       position: absolute;
@@ -84,11 +84,11 @@
   .menu__item.opened {
     pointer-events: none;
     height: 100vh;
-    background: white;
+    background: black;
 
     .menu__item__bg {
-      transition: 0.7s $ease;
-      transform: scale(2.5);
+      transition: 0.7s linear;
+      transform: scale(2);
     }
   }
 }
