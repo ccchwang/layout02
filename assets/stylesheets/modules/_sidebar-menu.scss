@@ -11,18 +11,20 @@
   background: #1c1d22;
   list-style-type: none;
   margin: 0;
+  overflow: hidden;
   position: relative;
 
 
   .menu__item {
     border-bottom: 1px solid #373642;
     height: calc(100vh / 7);
-    position: absolute;
-    width: 100%;
+    position: relative;
+    transition: all 0.5s $ease;
+    top: 0;
 
     .menu__item__bg {
-      background: url("../../public/img/f4.jpg")no-repeat left;
-      background-size: 130%;
+      background: url("../../public/img/ff.jpg") no-repeat left;
+      background-size: 140%;
       height: 100%;
       position: absolute;
       transition: 0.3s $ease;
@@ -39,7 +41,8 @@
       justify-content: center;
       margin: 0px;
       position: relative;
-      transition: 0.2s $ease;
+      text-transform: uppercase;
+      transition: 0.3s $ease;
       transition-delay: 0.1s;
       width: 100%;
       z-index: 3;
@@ -55,6 +58,10 @@
       z-index: 2
     }
 
+    &::before {
+      top: 0;
+    }
+
     &::after {
       bottom: 0;
     }
@@ -64,7 +71,7 @@
   .menu__item:hover, .menu__item.opened {
 
     .menu__item__bg {
-      background-size: 100%;
+      background-size: 110%;
     }
 
     .menu__item__label {
@@ -74,6 +81,7 @@
 
     &::before, &::after {
       height: 0%;
+      transition: 0.3s $ease;
     }
 
   }
@@ -82,46 +90,68 @@
   .menu__item.opened {
     pointer-events: none;
     height: 100vh;
-    top: 0;
     background: red;
+
+    &::before {
+      top: -300px;
+    }
+
+    &::after {
+      bottom: -300px;
+    }
+
+    .menu__item__bg {
+      transition: 0.5s linear;
+      transform: scale(2);
+    }
   }
 }
 
 //SETTING TOP'S ON MENU ITEMS
-.menu__item:nth-child(1) {
-  top: 0
+// .menu__item:nth-child(1) {
+//   top: 0
+// }
+
+// .menu__item:nth-child(2) {
+//   top: 100px
+// }
+
+// .menu__item:nth-child(3) {
+//   top: 200px
+// }
+
+// .menu__item:nth-child(4) {
+//   top: 300px
+// }
+
+// .menu__item:nth-child(5) {
+//   top: 400px
+// }
+
+// .menu__item:nth-child(6) {
+//   top: 500px
+// }
+
+// .menu__item:nth-child(7) {
+//   top: 600px
+// }
+
+.move-up {
+  top: -100vh !important;
 }
 
-.menu__item:nth-child(2) {
-  top: 100px
-}
-
-.menu__item:nth-child(3) {
-  top: 200px
-}
-
-.menu__item:nth-child(4) {
-  top: 300px
-}
-
-.menu__item:nth-child(5) {
-  top: 400px
-}
-
-.menu__item:nth-child(6) {
-  top: 500px
-}
-
-.menu__item:nth-child(7) {
-  top: 600px
-}
-
-.try2 {
-  transition: all 0.6s $ease;
-  top: -100px !important;
-}
-
-.try4 {
-  transition: all 0.6s $ease;
+.move-down {
   top: 100vh !important;
+}
+
+.close-btn {
+  position: fixed;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  z-index: 2;
+
+  &.show {
+    opacity: 1;
+  }
 }
