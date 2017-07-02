@@ -185,11 +185,11 @@ a {
     border-bottom: 1px solid #373642;
     height: calc(100vh / 7);
     position: relative;
-    transition: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     top: 0; }
     .menu .menu__item .menu__item__bg {
       background: url("../../public/img/ff.jpg") no-repeat left;
-      background-size: 130%;
+      background-size: 140%;
       height: 100%;
       position: absolute;
       transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -214,23 +214,25 @@ a {
       height: 50%;
       position: absolute;
       transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition-delay: 0.3s;
       width: 100%;
       z-index: 2; }
     .menu .menu__item::after {
       bottom: 0; }
   .menu .menu__item:hover .menu__item__bg, .menu .menu__item.opened .menu__item__bg {
-    background-size: 100%; }
+    background-size: 110%; }
   .menu .menu__item:hover .menu__item__label, .menu .menu__item.opened .menu__item__label {
     opacity: 0;
     transition: 0.1s cubic-bezier(0.165, 0.84, 0.44, 1); }
   .menu .menu__item:hover::before, .menu .menu__item:hover::after, .menu .menu__item.opened::before, .menu .menu__item.opened::after {
-    height: 0%; }
+    height: 0%;
+    transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); }
   .menu .menu__item.opened {
     pointer-events: none;
     height: 100vh;
-    background: black; }
+    background: red; }
     .menu .menu__item.opened .menu__item__bg {
-      transition: 0.7s linear;
+      transition: 0.5s linear;
       transform: scale(2); }
 
 .move-up {
@@ -238,3 +240,12 @@ a {
 
 .move-down {
   top: 100vh !important; }
+
+.close-btn {
+  position: fixed;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  z-index: 2; }
+  .close-btn.show {
+    opacity: 1; }
