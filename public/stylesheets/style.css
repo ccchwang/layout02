@@ -161,6 +161,9 @@ html, body {
   max-width: 100%;
   min-height: 100%; }
 
+* {
+  box-sizing: border-box; }
+
 a {
   text-decoration: none; }
 
@@ -176,12 +179,14 @@ a {
   background: #1c1d22;
   list-style-type: none;
   margin: 0;
+  overflow: hidden;
   position: relative; }
   .menu .menu__item {
     border-bottom: 1px solid #373642;
     height: calc(100vh / 7);
-    position: absolute;
-    width: 100%; }
+    position: relative;
+    transition: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+    top: 0; }
     .menu .menu__item .menu__item__bg {
       background: url("../../public/img/f4.jpg") no-repeat left;
       background-size: 130%;
@@ -223,34 +228,13 @@ a {
   .menu .menu__item.opened {
     pointer-events: none;
     height: 100vh;
-    top: 0;
-    background: red; }
+    background: white; }
+    .menu .menu__item.opened .menu__item__bg {
+      transition: 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transform: scale(2); }
 
-.menu__item:nth-child(1) {
-  top: 0; }
+.move-up {
+  top: -100vh !important; }
 
-.menu__item:nth-child(2) {
-  top: 100px; }
-
-.menu__item:nth-child(3) {
-  top: 200px; }
-
-.menu__item:nth-child(4) {
-  top: 300px; }
-
-.menu__item:nth-child(5) {
-  top: 400px; }
-
-.menu__item:nth-child(6) {
-  top: 500px; }
-
-.menu__item:nth-child(7) {
-  top: 600px; }
-
-.try2 {
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  top: -100px !important; }
-
-.try4 {
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+.move-down {
   top: 100vh !important; }

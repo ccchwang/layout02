@@ -11,14 +11,16 @@
   background: #1c1d22;
   list-style-type: none;
   margin: 0;
+  overflow: hidden;
   position: relative;
 
 
   .menu__item {
     border-bottom: 1px solid #373642;
     height: calc(100vh / 7);
-    position: absolute;
-    width: 100%;
+    position: relative;
+    transition: all 0.7s $ease;
+    top: 0;
 
     .menu__item__bg {
       background: url("../../public/img/f4.jpg")no-repeat left;
@@ -82,46 +84,48 @@
   .menu__item.opened {
     pointer-events: none;
     height: 100vh;
-    top: 0;
-    background: red;
+    background: white;
+
+    .menu__item__bg {
+      transition: 0.7s $ease;
+      transform: scale(2);
+    }
   }
 }
 
 //SETTING TOP'S ON MENU ITEMS
-.menu__item:nth-child(1) {
-  top: 0
+// .menu__item:nth-child(1) {
+//   top: 0
+// }
+
+// .menu__item:nth-child(2) {
+//   top: 100px
+// }
+
+// .menu__item:nth-child(3) {
+//   top: 200px
+// }
+
+// .menu__item:nth-child(4) {
+//   top: 300px
+// }
+
+// .menu__item:nth-child(5) {
+//   top: 400px
+// }
+
+// .menu__item:nth-child(6) {
+//   top: 500px
+// }
+
+// .menu__item:nth-child(7) {
+//   top: 600px
+// }
+
+.move-up {
+  top: -100vh !important;
 }
 
-.menu__item:nth-child(2) {
-  top: 100px
-}
-
-.menu__item:nth-child(3) {
-  top: 200px
-}
-
-.menu__item:nth-child(4) {
-  top: 300px
-}
-
-.menu__item:nth-child(5) {
-  top: 400px
-}
-
-.menu__item:nth-child(6) {
-  top: 500px
-}
-
-.menu__item:nth-child(7) {
-  top: 600px
-}
-
-.try2 {
-  transition: all 0.6s $ease;
-  top: -100px !important;
-}
-
-.try4 {
-  transition: all 0.6s $ease;
+.move-down {
   top: 100vh !important;
 }

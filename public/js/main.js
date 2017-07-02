@@ -4,18 +4,25 @@ const selectElements = function (selector) {
   return [].slice.call(nodes)
 };
 
-const registerClick = function(item) {
-  item.addEventListener('click', function() {
+const registerClick = function(item, i) {
+  //find neighbors of the item
+  const upperItems = menuItems.slice(0, i);
+  const lowerItems = menuItems.slice(i + 1)
+
+  //define helper function
+  const openItem = function() {
+    item.style.top = `${item.offsetTop * -1}px`;
     item.className += ' opened';
 
-    selectElements('.try').forEach(i => i.className += " try2")
+    upperItems.forEach(i => i.className += " move-up")
+    lowerItems.forEach(i => i.className += " move-down")
+  }
 
-    selectElements('.try3').forEach(i => i.className += " try4")
-  })
+  item.addEventListener('click', openItem)
 }
 
 ////
 
-const menuItem = selectElements('.menu__item');
+const menuItems = selectElements('.menu__item');
 
-menuItem.forEach(item => {registerClick(item)})
+menuItems.forEach(registerClick)
