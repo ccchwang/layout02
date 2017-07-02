@@ -41,7 +41,8 @@
       justify-content: center;
       margin: 0px;
       position: relative;
-      transition: 0.2s $ease;
+      text-transform: uppercase;
+      transition: 0.3s $ease;
       transition-delay: 0.1s;
       width: 100%;
       z-index: 3;
@@ -53,9 +54,12 @@
       height: 50%;
       position: absolute;
       transition: 0.3s $ease;
-      transition-delay: 0.3s;
       width: 100%;
       z-index: 2
+    }
+
+    &::before {
+      top: 0;
     }
 
     &::after {
@@ -87,6 +91,14 @@
     pointer-events: none;
     height: 100vh;
     background: red;
+
+    &::before {
+      top: -300px;
+    }
+
+    &::after {
+      bottom: -300px;
+    }
 
     .menu__item__bg {
       transition: 0.5s linear;

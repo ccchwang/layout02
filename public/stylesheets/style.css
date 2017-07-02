@@ -204,7 +204,8 @@ a {
       justify-content: center;
       margin: 0px;
       position: relative;
-      transition: 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+      text-transform: uppercase;
+      transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
       transition-delay: 0.1s;
       width: 100%;
       z-index: 3; }
@@ -214,9 +215,10 @@ a {
       height: 50%;
       position: absolute;
       transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-      transition-delay: 0.3s;
       width: 100%;
       z-index: 2; }
+    .menu .menu__item::before {
+      top: 0; }
     .menu .menu__item::after {
       bottom: 0; }
   .menu .menu__item:hover .menu__item__bg, .menu .menu__item.opened .menu__item__bg {
@@ -231,6 +233,10 @@ a {
     pointer-events: none;
     height: 100vh;
     background: red; }
+    .menu .menu__item.opened::before {
+      top: -300px; }
+    .menu .menu__item.opened::after {
+      bottom: -300px; }
     .menu .menu__item.opened .menu__item__bg {
       transition: 0.5s linear;
       transform: scale(2); }
