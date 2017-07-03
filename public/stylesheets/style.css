@@ -250,7 +250,7 @@ a {
     .menu .menu__item::before, .menu .menu__item::after {
       background: #1c1d22;
       content: '';
-      height: 50%;
+      height: 51%;
       position: absolute;
       transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
       width: 100%;
