@@ -1,51 +1,96 @@
+
+//CACHED VARIABLES
+const $closeBtn = selectElement('close-btn');
+const itemDetails = {};
+
 //HELPER FUNCTIONS
-const selectElements = function (selector) {
+function selectElements (selector) {
   let nodes = document.querySelectorAll(selector)
   return [].slice.call(nodes)
-};
+}
 
-const selectElement = function (selector) {
+function selectElement(selector) {
   return document.getElementsByClassName(selector)[0]
-};
+}
 
-const registerClick = function(item, i) {
+function cacheNeighbors(item, tag, i) {
   //find neighbors of the item
-  const upperItems = menuItems.slice(0, i);
-  const lowerItems = menuItems.slice(i + 1)
+  const itemsAbove = menuItems.slice(0, i);
+  const itemsBelow = menuItems.slice(i + 1);
+  const itemContent = selectElement("-" + tag);
 
-  //define helper function
+  itemDetails[tag] = {itemsAbove, itemsBelow, itemContent}
+}
+
+function registerClick(item, tag) {
+  //define helper functions
   const openItem = function() {
-    item.style.top = `${item.offsetTop * -1}px`;
+    item.style.top = `${(item.offsetTop * -1) - 50}px`;
     item.className += ' opened';
 
     //show close button
     $closeBtn.className += ' show';
 
-    upperItems.forEach(i => i.className += " move-up")
-    lowerItems.forEach(i => i.className += " move-down")
+    //move neighbors
+    itemDetails[tag].itemsAbove.forEach(i => i.className += " move-up");
+    itemDetails[tag].itemsBelow.forEach(i => i.className += " move-down");
+
+    //bring up content into view
+    itemDetails[tag].itemContent.className += ' show';
   }
 
-  const closeItem = function() {
-    item.style.top = 0;
-    item.classList.remove("opened");
 
-    //hiden close button
-    $closeBtn.classList.remove("show");
-
-    upperItems.forEach(i => i.classList.remove("move-up"))
-    lowerItems.forEach(i => i.classList.remove("move-down"))
-  }
-  ///
-
+  //register event handler
   item.addEventListener('click', openItem)
-  $closeBtn.addEventListener('click', closeItem)
 }
 
-//CACHED VARIABLES
-const $closeBtn = selectElement('close-btn');
+function closeItem() {
+  const openedSection = selectElement('opened');
+  const tag = openedSection.dataset.tag;
+
+  //close opened section
+  openedSection.style.top = 0;
+  openedSection.classList.remove('opened')
+
+  //hide close button
+  $closeBtn.classList.remove("show");
+
+  //move back neighbor
+  itemDetails[tag].itemsAbove.forEach(i => i.classList.remove("move-up"))
+  itemDetails[tag].itemsBelow.forEach(i => i.classList.remove("move-down"))
+
+  //hide content
+  itemDetails[tag].itemContent.classList.remove('show');
+
+  //scroll to top of window
+  window.scrollTo(0, 0);
+
+  // //scroll to top of window
+  // openedSection.scrollIntoView(true);
+}
+
 
 //FLOW
-
 const menuItems = selectElements('.menu__item');
+const contentCards = selectElements('.content__card');
 
-menuItems.forEach(registerClick);
+
+
+// //***FOR SCROLLING HEADERS - add debounce, get rid of anon fn */
+// window.addEventListener('scroll', function() {
+
+// })
+
+
+menuItems.forEach((item, i) => {
+  //cache identifying tag
+  const tag = item.dataset.tag;
+
+  cacheNeighbors(item, tag, i)
+  registerClick(item, tag)
+});
+
+//register specific event handler on close btn
+$closeBtn.addEventListener('click', closeItem)
+
+

@@ -16,12 +16,11 @@
 
 
 // Base
-// @import "base/backgrounds";
+@import "base/backgrounds";
 // @import "base/breakpoints";
 // @import "base/buttons";
 // @import "base/forms";
 // @import "base/grid";
-// @import "base/images";
 @import "base/layout";
 @import "base/links";
 // @import "base/lists";
@@ -31,4 +30,5 @@
 // @import "base/utilities";
 
 // Modules
+@import "modules/content-section";
 @import "modules/sidebar-menu"

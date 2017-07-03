@@ -2,8 +2,11 @@ html, body {
   background: #fff;
   max-width: 100%;
   min-height: 100%;
+  font-family: 'Roboto Mono'
 }
 
 * {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   box-sizing: border-box
 }
