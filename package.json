@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-css": "node-sass -w assets/stylesheets/style.scss -o public/stylesheets"
+    "build-css": "node-sass -w assets/stylesheets/style.scss -o public/stylesheets",
+    "build-js": "browserify assets/js/main.js -o public/js/bundle.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-sass": "^4.5.0"
+    "browserify": "^14.4.0",
+    "jquery": "^3.2.1",
+    "node-sass": "^4.5.3"
   }
 }

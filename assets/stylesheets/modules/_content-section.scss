@@ -1,10 +1,10 @@
-.content {
+.work {
   width: 60vw;
   height: 100%;
   left: 0;
   opacity: 0;
   position: absolute;
-  top: 30%;
+  top: 100%;
   transition: 0.5s;
 
   &.show {
@@ -12,10 +12,6 @@
     top: 0;
     transition: 0.4s linear 0.2s;
   }
-}
-
-.content__card__wrapper {
-  padding: 100px;
 
   h2 {
     font-family: 'Lato';
@@ -36,4 +32,18 @@
   }
 }
 
+.wrapper {
+  padding: 100px;
+}
 
+
+.floating {
+      position: relative;
+    left: 60%;
+    z-index: 1;
+
+    h2 {
+
+      font-size: 39px;
+    }
+}
