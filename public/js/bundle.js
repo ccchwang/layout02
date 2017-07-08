@@ -75,45 +75,41 @@ menuItems.forEach((item, i) => {
 //create close button
 new CloseButton(closeBtn, itemsMap);
 
-const header = document.getElementsByClassName('header')[0];
-const content = document.getElementsByClassName('contentEnter')[0];
+const header = document.getElementsByClassName('side-title')[0];
+const content = document.getElementsByClassName('work__content')[0];
 
 
 const windowHeight = window.innerHeight;
 const contentHeight = content.offsetHeight;
+const contentTop = content.offsetTop;
+const contentBottom = contentTop + contentHeight;
 
-const objectTop = content.offsetTop;
-const objectBottom = objectTop + contentHeight;
-
-let freezeTop = 0;
+let frozenTop = 0;
 
 
 window.addEventListener('scroll', function() {
   const windowTop = window.scrollY;
   const windowBottom = windowTop + windowHeight;
 
-  const topPercentage = (windowTop / contentHeight) * 100;
+  const progress = (windowTop / contentHeight) * 100;
 
-  if (windowBottom > objectBottom) {
-    if (!freezeTop) {
-      freezeTop = ((topPercentage / 100) * windowHeight) +  windowTop;
+  if (windowBottom > contentBottom) {
+    if (!frozenTop) {
+      frozenTop = ((progress / 100) * windowHeight) +  windowTop - 5;
     }
-    header.classList.add('stay')
-    header.style.top = `${freezeTop}px`;
-
+    header.classList.add('-frozen')
+    header.style.top = `${frozenTop}px`;
   }
-  else if (windowTop > objectTop) {
-    header.style.top = `${topPercentage}%`;
-    header.classList.remove('stay')
-    header.classList.add('floating');
+
+  else if (windowTop > contentTop) {
+    header.style.top = `${progress}%`;
+    header.classList.remove('-frozen')
+    header.classList.add('-floating');
   }
 
   else {
-    header.classList.remove('floating')
+    header.classList.remove('-floating')
   }
-
-
-
 })
 
 
