@@ -186,9 +186,10 @@ a {
     top: 0;
     transition: 0.4s linear 0.2s; }
 
-.content__card__wrapper {
+.content__wrapper {
   padding: 100px; }
-  .content__card__wrapper h2 {
+  .content__wrapper h2 {
+    color: #5000ff;
     font-family: 'Lato';
     text-transform: uppercase;
     font-size: 35px;
@@ -196,12 +197,31 @@ a {
     letter-spacing: 3px;
     margin-top: 0;
     margin-bottom: 64px; }
-  .content__card__wrapper p {
+  .content__wrapper p {
     color: #525252;
     font-size: 14px;
     letter-spacing: 1px;
     line-height: 2.8;
     margin-bottom: 35px; }
+
+.header {
+  position: relative; }
+
+.floating {
+  position: fixed;
+  left: 55vw;
+  z-index: 1;
+  font-size: 55px !important;
+  width: 300px; }
+
+.try {
+  padding-bottom: 0;
+  min-height: 232px; }
+  .try h2 {
+    margin-bottom: 0; }
+
+.stay {
+  position: absolute; }
 
 .sidebar {
   height: 100%;
@@ -218,7 +238,7 @@ a {
   overflow: hidden;
   position: relative; }
   .menu .menu__item {
-    border-bottom: 1px solid #373642;
+    border-bottom: 1px solid #3c1c82;
     height: calc(100vh / 6);
     position: relative;
     transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -247,6 +267,10 @@ a {
       transition-delay: 0.15s;
       width: 100%;
       z-index: 3; }
+      .menu .menu__item .menu__item__label span {
+        background: linear-gradient(45deg, #ff52e1, #1fcbff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent; }
     .menu .menu__item::before, .menu .menu__item::after {
       background: #1c1d22;
       content: '';
@@ -287,9 +311,39 @@ a {
 
 .close-btn {
   position: fixed;
-  top: 0;
-  right: 0;
+  color: #5000ff;
+  top: 50px;
+  left: 52%;
   opacity: 0;
-  z-index: 2; }
+  transition: 0.3s;
+  z-index: 2;
+  border: none;
+  background: none;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px; }
+  .close-btn::before, .close-btn::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 90%;
+    transition: 0.3s;
+    z-index: -1;
+    opacity: 0.6; }
+  .close-btn::before {
+    background-color: #faa6ff;
+    left: 6%;
+    top: 20%; }
+  .close-btn::after {
+    background-color: #62dbff;
+    right: 10%;
+    top: -12%; }
   .close-btn.show {
+    opacity: 1; }
+
+.close-btn:hover {
+  color: white; }
+  .close-btn:hover::before, .close-btn:hover::after {
+    top: 3%;
+    background-color: #5000ff;
     opacity: 1; }

@@ -75,6 +75,60 @@ menuItems.forEach((item, i) => {
 //create close button
 new CloseButton(closeBtn, itemsMap);
 
+const header = document.getElementsByClassName('header')[0];
+const content = document.getElementsByClassName('contentEnter')[0];
+
+
+const windowHeight = window.innerHeight;
+const contentHeight = content.offsetHeight;
+
+const objectTop = content.offsetTop;
+const objectBottom = objectTop + contentHeight;
+
+let freezeTop = 0;
+
+
+window.addEventListener('scroll', function() {
+  const windowTop = window.scrollY;
+  const windowBottom = windowTop + windowHeight;
+
+  const topPercentage = (windowTop / contentHeight) * 100;
+
+  if (windowBottom > objectBottom) {
+    if (!freezeTop) {
+      freezeTop = ((topPercentage / 100) * windowHeight) +  windowTop;
+    }
+    header.classList.add('stay')
+    header.style.top = `${freezeTop}px`;
+
+  }
+  else if (windowTop > objectTop) {
+    header.style.top = `${topPercentage}%`;
+    header.classList.remove('stay')
+    header.classList.add('floating');
+  }
+
+  else {
+    header.classList.remove('floating')
+  }
+
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 },{"./close-button":1,"./menu-item":3}],3:[function(require,module,exports){
 var MenuItem = function(el, index, items, closeBtn) {

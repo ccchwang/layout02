@@ -14,10 +14,11 @@
   }
 }
 
-.content__card__wrapper {
+.content__wrapper {
   padding: 100px;
 
   h2 {
+    color: #5000ff;
     font-family: 'Lato';
     text-transform: uppercase;
     font-size: 35px;
@@ -36,4 +37,26 @@
   }
 }
 
+.header {
+  position: relative;
+}
+.floating {
+  position: fixed;
+      left: 55vw;
+    z-index: 1;
+    font-size: 55px !important;
+    width: 300px;
+}
 
+.try {
+  padding-bottom:0;
+  min-height: 232px;
+
+  h2 {
+    margin-bottom: 0
+  }
+}
+
+.stay {
+  position: absolute;
+}
