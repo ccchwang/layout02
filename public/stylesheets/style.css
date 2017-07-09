@@ -193,7 +193,7 @@ a {
     letter-spacing: 3px;
     margin-top: 0;
     margin-bottom: 0;
-    transition: opacity 0.3s; }
+    transition: opacity 0.2s; }
   .work p {
     color: #525252;
     font-size: 14px;
@@ -313,37 +313,36 @@ a {
   position: fixed;
   color: #5000ff;
   top: 50px;
-  left: 52%;
+  left: 30px;
   opacity: 0;
   transition: 0.3s;
   z-index: 2;
   border: none;
   background: none;
-  font-size: 15px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px; }
+  font-size: 25px;
+  font-family: 'lato'; }
   .close-btn::before, .close-btn::after {
     content: '';
     position: absolute;
-    width: 50%;
-    height: 90%;
+    width: 30px;
+    height: 25px;
     transition: 0.3s;
     z-index: -1;
-    opacity: 0.6; }
+    opacity: 0.5; }
   .close-btn::before {
     background-color: #faa6ff;
-    left: 6%;
-    top: 20%; }
+    left: -15%;
+    top: 40%; }
   .close-btn::after {
     background-color: #62dbff;
-    right: 10%;
-    top: -12%; }
+    right: -15%;
+    top: -10%; }
   .close-btn.show {
     opacity: 1; }
 
 .close-btn:hover {
   color: white; }
   .close-btn:hover::before, .close-btn:hover::after {
-    top: 3%;
+    top: 15.7%;
     background-color: #5000ff;
     opacity: 1; }

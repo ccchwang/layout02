@@ -49,6 +49,7 @@ module.exports = CloseButton;
 const MenuItem = require('./menu-item');
 const CloseButton = require('./close-button');
 
+
 //HELPER FUNCTIONS
 function selectElements (selector) {
   let nodes = document.querySelectorAll(selector)
@@ -56,10 +57,10 @@ function selectElements (selector) {
 }
 
 //CACHED VARIABLES
-const closeBtn = document.getElementsByClassName('close-btn')[0];
-const menuItems = selectElements('.menu__item');
+const closeBtn =     document.getElementsByClassName('close-btn')[0];
+const menuItems =    selectElements('.menu__item');
 const contentCards = selectElements('.content__card');
-const itemsMap = [];
+const itemsMap =     [];
 
 
 // //***FOR SCROLLING HEADERS - add debounce, get rid of anon fn */
@@ -75,34 +76,47 @@ menuItems.forEach((item, i) => {
 //create close button
 new CloseButton(closeBtn, itemsMap);
 
+
+
 const header = document.getElementsByClassName('side-title')[0];
 const content = document.getElementsByClassName('work__content')[0];
 
 
 const windowHeight = window.innerHeight;
-const contentHeight = content.offsetHeight;
+let contentHeight = 0;
 const contentTop = content.offsetTop;
-const contentBottom = contentTop + contentHeight;
+let contentBottom;
 
 let frozenTop = 0;
 
 
-window.addEventListener('scroll', function() {
+
+window.addEventListener('scroll', function(){
   const windowTop = window.scrollY;
   const windowBottom = windowTop + windowHeight;
 
-  const progress = (windowTop / contentHeight) * 100;
+  let progressPercent = (windowTop / contentHeight) * 100;
+
+  if (!contentHeight) {
+    contentHeight = content.offsetHeight;
+    contentBottom = contentTop + contentHeight;
+  }
 
   if (windowBottom > contentBottom) {
     if (!frozenTop) {
-      frozenTop = ((progress / 100) * windowHeight) +  windowTop - 5;
+      let progressDecimal = progressPercent > 70 ? 0.65 : progressPercent / 100;
+
+      let progressToPixels = progressDecimal * windowHeight;
+      let pixelsLeftToBottom = windowHeight - progressToPixels;
+
+      frozenTop = contentBottom - pixelsLeftToBottom;
     }
-    header.classList.add('-frozen')
+    header.classList.add('-frozen');
     header.style.top = `${frozenTop}px`;
   }
 
   else if (windowTop > contentTop) {
-    header.style.top = `${progress}%`;
+    header.style.top = `${progressPercent}%`;
     header.classList.remove('-frozen')
     header.classList.add('-floating');
   }
@@ -111,20 +125,6 @@ window.addEventListener('scroll', function() {
     header.classList.remove('-floating')
   }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 },{"./close-button":1,"./menu-item":3}],3:[function(require,module,exports){
 var MenuItem = function(el, index, items, closeBtn) {
