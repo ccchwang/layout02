@@ -132,9 +132,13 @@ FloatingHeaders.prototype = {
     const windowTop = window.scrollY;
     const windowBottom = windowTop + this.windowHeight;
 
+
     for (var header in this.map) {
       //cache section
       let section = this.map[header];
+
+
+console.log(windowTop )
 
       //set height of content
       if (!section.contentHeight) {
@@ -176,12 +180,13 @@ FloatingHeaders.prototype = {
   },
 
   calculateProgress: function(windowTop, section) {
-    let progressPercent = (windowTop / section.contentHeight) * 100;
+    //some go from 0-80, others from 0-60. I want them all going on same scale from 0-70. How to do that??
 
-    //account for sections far down the page
-    if (progressPercent > 100) {
-      progressPercent = String(progressPercent).slice(1) - (String(progressPercent).slice(0, 1) * 10);
-    }
+    //i think section.contentBottom will have something to do with it??
+    let progressPercent = ((windowTop - section.contentTop) / section.contentHeight) * 80;
+
+//1366 (windowTop) - 1366 (section.contentTop) / 1406 (height)
+
     return progressPercent;
   },
 
