@@ -176,7 +176,7 @@ position: fixed;
   }
 
   &::before {
-        background-color: #faa6ff;
+    background-color: #faa6ff;
     left: -15%;
     top: 40%;
   }
@@ -196,7 +196,7 @@ position: fixed;
   color: white;
 
   &::before, &::after {
-    top: 15.7%;
+    top: 15%;
     background-color: #5000ff;
     opacity: 1;
   }

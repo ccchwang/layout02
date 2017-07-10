@@ -9,26 +9,22 @@ Modules.prototype = {
   FloatingHeaders: require('./modules/floating-headers'),
 
   init: function() {
-    this.setVars();
+    var headers = this.selectElements('.side-title');
+    var closeBtn = this.selectElements('.close-btn');
+    var menuItems = this.selectElements('.menu__item');
+    var itemsMap = [];
 
     //menu items
-    this.menuItems.forEach((item, i) => {
-      this.itemsMap.push(new this.MenuItem(item, i, this.menuItems, this.closeBtn));
+    menuItems.forEach((item, i) => {
+      itemsMap.push(new this.MenuItem(item, i, menuItems, closeBtn));
     });
 
     //close button
-    new this.CloseButton(this.closeBtn, this.itemsMap);
+    new this.CloseButton(closeBtn, itemsMap);
 
     //floating headers
-    new this.FloatingHeaders(this.headers)
+    new this.FloatingHeaders(headers);
 
-  },
-
-  setVars: function() {
-    this.headers = this.selectElements('.side-title');
-    this.closeBtn = this.selectElements('.close-btn');
-    this.menuItems = this.selectElements('.menu__item');
-    this.itemsMap = [];
   },
 
   selectElements: function(selector) {

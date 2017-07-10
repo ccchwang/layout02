@@ -343,6 +343,6 @@ a {
 .close-btn:hover {
   color: white; }
   .close-btn:hover::before, .close-btn:hover::after {
-    top: 15.7%;
+    top: 15%;
     background-color: #5000ff;
     opacity: 1; }
