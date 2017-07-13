@@ -182,8 +182,7 @@ a {
   left: 0;
   opacity: 0;
   position: absolute;
-  top: 30%;
-  transition: 0.5s; }
+  top: 20%; }
   .work h2 {
     color: #5000ff;
     font-family: 'Lato';
@@ -203,7 +202,7 @@ a {
   .work.show {
     opacity: 1;
     top: 0;
-    transition: 0.4s linear 0.2s; }
+    transition: 0.3s linear 0.7s; }
   .work .work__lead {
     padding-bottom: 0; }
 
@@ -302,6 +301,11 @@ a {
     .menu .menu__item.opened .menu__item__bg {
       transition: 0.5s linear;
       transform: scale(1.3); }
+    .menu .menu__item.opened,
+    .menu .menu__item.opened .menu__item__bg,
+    .menu .menu__item.opened ~ .move-up,
+    .menu .menu__item.opened ~ .move-down {
+      transition-delay: 0.3s; }
 
 .move-up {
   top: -100vh !important; }
@@ -337,7 +341,7 @@ a {
     background-color: #62dbff;
     right: -15%;
     top: -10%; }
-  .close-btn.show {
+  body.active .close-btn {
     opacity: 1; }
 
 .close-btn:hover {
@@ -346,3 +350,17 @@ a {
     top: 15%;
     background-color: #5000ff;
     opacity: 1; }
+
+.main {
+  width: 60vw;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s; }
+  body.active .main {
+    top: -60%;
+    transition-delay: 0s; }

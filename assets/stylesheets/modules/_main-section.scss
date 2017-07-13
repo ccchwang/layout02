@@ -1,0 +1,16 @@
+.main {
+  width: 60vw;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s $ease 0.1s;
+
+  body.active & {
+    top: -60%;
+    transition-delay: 0s;
+  }
+}

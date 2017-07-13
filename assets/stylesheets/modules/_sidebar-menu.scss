@@ -112,7 +112,22 @@
       transition: 0.5s linear;
       transform: scale(1.3);
     }
+
+    &,
+    .menu__item__bg,
+    & ~ .move-up,
+    & ~ .move-down {
+      transition-delay: 0.3s;
+    }
   }
+}
+
+.move-up {
+  top: -100vh !important;
+}
+
+.move-down {
+  top: 100vh !important;
 }
 
 //SETTING TOP'S ON MENU ITEMS
@@ -144,16 +159,10 @@
 //   top: 600px
 // }
 
-.move-up {
-  top: -100vh !important;
-}
 
-.move-down {
-  top: 100vh !important;
-}
 
 .close-btn {
-position: fixed;
+    position: fixed;
     color: #5000ff;
     top: 50px;
     left: 30px;
@@ -187,7 +196,7 @@ position: fixed;
     top: -10%;
   }
 
-  &.show {
+  body.active & {
     opacity: 1;
   }
 }

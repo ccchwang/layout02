@@ -18,15 +18,16 @@ Modules.prototype = {
     var workLeads = this.selectElements('[data-module=FloatingHeader]');
     var closeBtn = this.selectElements('.close-btn');
     var menuItems = this.selectElements('.menu__item');
+    var body = this.selectElements('body');
     var itemsMap = [];
 
     //menu items
     menuItems.forEach((item, i) => {
-      itemsMap.push(new this.MenuItem(item, i, menuItems, closeBtn));
+      itemsMap.push(new this.MenuItem(item, i, menuItems, closeBtn, body));
     });
 
     //close button
-    new this.CloseButton(closeBtn, itemsMap);
+    new this.CloseButton(closeBtn, itemsMap, body);
 
     //floating headers
     new this.FloatingHeaders(workLeads);
@@ -44,9 +45,10 @@ Modules.prototype = {
 module.exports = Modules;
 
 },{"./modules/close-button":3,"./modules/floating-headers":4,"./modules/menu-item":5}],3:[function(require,module,exports){
-var CloseButton = function(el, itemsMap) {
+var CloseButton = function(el, itemsMap, body) {
   this.el = el;
   this.itemsMap = itemsMap;
+  this.body = body;
   this.init();
 }
 
@@ -71,7 +73,7 @@ CloseButton.prototype = {
     openedSection.classList.remove('opened')
 
     //hide close button
-    this.el.classList.remove("show");
+    this.body.classList.remove("active");
 
     //move neighbors
     itemMap.aboveNeighbors.forEach(i => i.classList.remove("move-up"))
@@ -197,10 +199,11 @@ FloatingHeaders.prototype = {
 module.exports = FloatingHeaders;
 
 },{}],5:[function(require,module,exports){
-var MenuItem = function(el, index, items, closeBtn) {
+var MenuItem = function(el, index, items, closeBtn, body) {
   this.el = el;
   this.tag = el.dataset.tag;
   this.closeBtn = closeBtn;
+  this.body = body;
   this.init(index, items);
 }
 
@@ -224,8 +227,8 @@ MenuItem.prototype = {
     this.el.style.top = `${(this.el.offsetTop * -1) - 50}px`;
     this.el.className += ' opened';
 
-    //show close button
-    this.closeBtn.className += ' show';
+    //mark that section is opened
+    this.body.className += ' active';
 
     //move neighbors
     this.aboveNeighbors.forEach(i => i.className += " move-up");
