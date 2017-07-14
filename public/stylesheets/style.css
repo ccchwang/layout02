@@ -341,9 +341,9 @@ a {
     top: -10%; }
   body.active .close-btn {
     opacity: 1;
-    transition: opacity 0.4s 0.7s, color 0.3s; }
+    transition: opacity 0.55s 0.6s, color 0.3s; }
     body.active .close-btn::before, body.active .close-btn::after {
-      transition: height 0.4s cubic-bezier(0.895, 0.03, 0.685, 0.22) 0.7s, top 0.3s, background-color 0.3s; }
+      transition: height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 1.05s, top 0.3s, background-color 0.3s; }
     body.active .close-btn::before, body.active .close-btn::after {
       height: 25px; }
 
