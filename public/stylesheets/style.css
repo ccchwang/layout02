@@ -202,7 +202,7 @@ a {
   .work.show {
     opacity: 1;
     top: 0;
-    transition: 0.3s linear 0.7s; }
+    transition: 0.3s linear 0.6s; }
   .work .work__lead {
     padding-bottom: 0; }
 
@@ -305,7 +305,7 @@ a {
     .menu .menu__item.opened .menu__item__bg,
     .menu .menu__item.opened ~ .move-up,
     .menu .menu__item.opened ~ .move-down {
-      transition-delay: 0.3s; }
+      transition-delay: 0.2s; }
 
 .move-up {
   top: -100vh !important; }
@@ -319,7 +319,6 @@ a {
   top: 50px;
   left: 30px;
   opacity: 0;
-  transition: 0.3s;
   z-index: 2;
   border: none;
   background: none;
@@ -329,8 +328,7 @@ a {
     content: '';
     position: absolute;
     width: 30px;
-    height: 25px;
-    transition: 0.3s;
+    height: 0px;
     z-index: -1;
     opacity: 0.5; }
   .close-btn::before {
@@ -342,7 +340,12 @@ a {
     right: -15%;
     top: -10%; }
   body.active .close-btn {
-    opacity: 1; }
+    opacity: 1;
+    transition: opacity 0.4s 0.7s, color 0.3s; }
+    body.active .close-btn::before, body.active .close-btn::after {
+      transition: height 0.4s cubic-bezier(0.895, 0.03, 0.685, 0.22) 0.7s, top 0.3s, background-color 0.3s; }
+    body.active .close-btn::before, body.active .close-btn::after {
+      height: 25px; }
 
 .close-btn:hover {
   color: white; }
@@ -362,5 +365,8 @@ a {
   align-items: center;
   transition: 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s; }
   body.active .main {
-    top: -60%;
+    top: -85%;
     transition-delay: 0s; }
+  .main img {
+    width: 300px;
+    height: 300px; }

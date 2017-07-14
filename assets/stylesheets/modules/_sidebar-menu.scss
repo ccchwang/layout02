@@ -117,7 +117,7 @@
     .menu__item__bg,
     & ~ .move-up,
     & ~ .move-down {
-      transition-delay: 0.3s;
+      transition-delay: 0.2s;
     }
   }
 }
@@ -167,7 +167,6 @@
     top: 50px;
     left: 30px;
     opacity: 0;
-    transition: 0.3s;
     z-index: 2;
     border: none;
     background: none;
@@ -178,8 +177,7 @@
     content: '';
     position: absolute;
     width: 30px;
-    height: 25px;
-    transition: 0.3s;
+    height: 0px;
     z-index: -1;
     opacity: 0.5;
   }
@@ -198,6 +196,15 @@
 
   body.active & {
     opacity: 1;
+    transition: opacity 0.4s 0.7s, color 0.3s;
+
+    &::before, &::after {
+      transition: height 0.4s cubic-bezier(0.895, 0.03, 0.685, 0.22) 0.7s, top 0.3s, background-color 0.3s;
+    }
+
+    &::before, &::after {
+      height: 25px
+    }
   }
 }
 
