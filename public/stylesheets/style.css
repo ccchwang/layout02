@@ -156,6 +156,25 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none; }
+
+.pace-inactive {
+  display: none; }
+
+.pace .pace-progress {
+  background: #29d;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 10px; }
+
 .bg-lightgray {
   background-color: #e8ebed; }
 
@@ -169,6 +188,11 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box; }
+
+body {
+  overflow: hidden; }
+  body.pace-done {
+    overflow: initial; }
 
 a {
   text-decoration: none; }
@@ -225,9 +249,14 @@ a {
 .sidebar {
   height: 100%;
   position: fixed;
-  right: 0;
+  right: -40vw;
+  opacity: 0;
   top: 0;
+  transition: 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s;
   width: 40vw; }
+  body.pace-done .sidebar {
+    opacity: 1;
+    right: 0; }
 
 .menu {
   -webkit-padding-start: 0px;
@@ -343,8 +372,7 @@ a {
     opacity: 1;
     transition: opacity 0.55s 0.6s, color 0.3s; }
     body.active .close-btn::before, body.active .close-btn::after {
-      transition: height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) 1.05s, top 0.3s, background-color 0.3s; }
-    body.active .close-btn::before, body.active .close-btn::after {
+      transition: height 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) 0.95s, top 0.3s, background-color 0.3s;
       height: 25px; }
 
 .close-btn:hover {
@@ -355,17 +383,20 @@ a {
     opacity: 1; }
 
 .main {
-  width: 60vw;
+  width: 100vw;
   height: 100%;
   left: 0;
   top: 0;
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s; }
   body.active .main {
     top: -85%;
+    transition-delay: 0s; }
+  body.pace-done .main {
+    width: 60vw;
     transition-delay: 0s; }
   .main img {
     width: 300px;
