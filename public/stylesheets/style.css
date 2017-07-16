@@ -401,3 +401,50 @@ a {
   .main img {
     width: 300px;
     height: 300px; }
+
+.move-btn-toolbar {
+  display: flex;
+  justify-content: space-around; }
+
+.move-btn {
+  align-items: center;
+  background: none;
+  border: none;
+  color: #5000ff;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5rem;
+  transition: 0.3s;
+  z-index: 2; }
+  .move-btn img {
+    display: block;
+    position: relative;
+    top: -15px;
+    transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); }
+  .move-btn span {
+    position: relative; }
+    .move-btn span::before, .move-btn span::after {
+      content: '';
+      position: absolute;
+      width: 75%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.5;
+      transition: 0.3s; }
+    .move-btn span::before {
+      background-color: #faa6ff;
+      left: -20%;
+      top: 13%; }
+    .move-btn span::after {
+      background-color: #62dbff;
+      right: -20%;
+      top: -10%; }
+
+.move-btn:hover {
+  color: white; }
+  .move-btn:hover span::before, .move-btn:hover span::after {
+    top: 0%;
+    background-color: #5000ff;
+    opacity: 1; }
+  .move-btn:hover img {
+    transform: translateY(-10px); }
