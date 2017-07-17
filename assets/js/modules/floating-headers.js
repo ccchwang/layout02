@@ -1,5 +1,5 @@
-var FloatingHeaders = function(headers) {
-  this.headers = headers;
+var FloatingHeaders = function(workLeads) {
+  this.workLeads = workLeads;
   this.map = {};
   this.windowHeight = window.innerHeight;
   this.init();
@@ -12,18 +12,22 @@ FloatingHeaders.prototype = {
   },
 
   setMap: function() {
-    this.headers.forEach(header => {
-      let label = header.dataset.label;
-      let content = document.querySelector(`.work__content[data-label='${label}']`);
+    this.workLeads.forEach((lead, i) => {
+      let header = lead.querySelector('.side-title');
+      let content = lead.nextElementSibling;
 
-      this.map[label] = {
-        header,
-        content,
-        frozenTop: 0,
-        contentHeight: 0,
-        contentTop: 0,
-        contentBottom: 0
+      if (content) {
+        this.map[i] = {
+          header,
+          content,
+          leadHeight: lead.offsetHeight,
+          frozenTop: 0,
+          contentHeight: 0,
+          contentTop: 0,
+          contentBottom: 0
+        }
       }
+
     })
   },
 
@@ -36,12 +40,9 @@ FloatingHeaders.prototype = {
     const windowBottom = windowTop + this.windowHeight;
 
 
-    for (var header in this.map) {
+    for (var lead in this.map) {
       //cache section
-      let section = this.map[header];
-
-
-console.log(windowTop )
+      let section = this.map[lead];
 
       //set height of content
       if (!section.contentHeight) {
@@ -79,16 +80,12 @@ console.log(windowTop )
     section.contentHeight = section.content.offsetHeight;
     section.contentTop = section.content.offsetTop;
     section.contentBottom = section.contentTop + section.contentHeight;
-    console.log(this.map)
   },
 
   calculateProgress: function(windowTop, section) {
-    //some go from 0-80, others from 0-60. I want them all going on same scale from 0-70. How to do that??
-
-    //i think section.contentBottom will have something to do with it??
-    let progressPercent = ((windowTop - section.contentTop) / section.contentHeight) * 80;
-
-//1366 (windowTop) - 1366 (section.contentTop) / 1406 (height)
+    //get pure scroll by subtracting section's offsetTop from window's scrollY
+    let scrollY = windowTop - section.contentTop + section.leadHeight;
+    let progressPercent = (scrollY / section.contentHeight) * 80;  //scale of 0-80%
 
     return progressPercent;
   },

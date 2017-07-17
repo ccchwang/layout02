@@ -4,26 +4,31 @@ var Modules = function(el) {
 };
 
 Modules.prototype = {
-  MenuItem: require('./modules/menu-item'),
-  CloseButton: require('./modules/close-button'),
-  FloatingHeaders: require('./modules/floating-headers'),
+  MenuItem: require('./menu-item'),
+  CloseButton: require('./close-button'),
+  FloatingHeaders: require('./floating-headers'),
+  MoveButtons: require('./move-buttons'),
 
   init: function() {
-    var headers = this.selectElements('.side-title');
+    var workLeads = this.selectElements('[data-module=FloatingHeader]');
     var closeBtn = this.selectElements('.close-btn');
     var menuItems = this.selectElements('.menu__item');
+    var body = this.selectElements('body');
     var itemsMap = [];
 
     //menu items
     menuItems.forEach((item, i) => {
-      itemsMap.push(new this.MenuItem(item, i, menuItems, closeBtn));
+      itemsMap.push(new this.MenuItem(item, i, menuItems, closeBtn, body));
     });
 
+    //next buttons
+    itemsMap.forEach((itemMap, i) => new this.MoveButtons(itemMap, i, itemsMap));
+
     //close button
-    new this.CloseButton(closeBtn, itemsMap);
+    new this.CloseButton(closeBtn, itemsMap, body);
 
     //floating headers
-    new this.FloatingHeaders(headers);
+    new this.FloatingHeaders(workLeads);
 
   },
 

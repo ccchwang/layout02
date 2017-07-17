@@ -3,7 +3,48 @@ const Modules = require('./modules');
 
 new Modules(document);
 
-},{"./modules":4}],2:[function(require,module,exports){
+},{"./modules":2}],2:[function(require,module,exports){
+var Modules = function(el) {
+  this.el = el;
+  this.init();
+};
+
+Modules.prototype = {
+  MenuItem: require('./modules/menu-item'),
+  CloseButton: require('./modules/close-button'),
+  FloatingHeaders: require('./modules/floating-headers'),
+
+  init: function() {
+    var workLeads = this.selectElements('[data-module=FloatingHeader]');
+    var closeBtn = this.selectElements('.close-btn');
+    var menuItems = this.selectElements('.menu__item');
+    var body = this.selectElements('body');
+    var itemsMap = [];
+
+    //menu items
+    menuItems.forEach((item, i) => {
+      itemsMap.push(new this.MenuItem(item, i, menuItems, closeBtn, body));
+    });
+
+    //close button
+    new this.CloseButton(closeBtn, itemsMap, body);
+
+    //floating headers
+    new this.FloatingHeaders(workLeads);
+
+  },
+
+  selectElements: function(selector) {
+    let nodes = document.querySelectorAll(selector);
+    let arrayifiedNodes = [].slice.call(nodes);
+
+    return arrayifiedNodes.length === 1 ? arrayifiedNodes[0] : arrayifiedNodes;
+  }
+};
+
+module.exports = Modules;
+
+},{"./modules/close-button":3,"./modules/floating-headers":4,"./modules/menu-item":5}],3:[function(require,module,exports){
 var CloseButton = function(el, itemsMap, body) {
   this.el = el;
   this.itemsMap = itemsMap;
@@ -51,7 +92,7 @@ CloseButton.prototype = {
 
 module.exports = CloseButton;
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 var FloatingHeaders = function(workLeads) {
   this.workLeads = workLeads;
   this.map = {};
@@ -157,52 +198,7 @@ FloatingHeaders.prototype = {
 
 module.exports = FloatingHeaders;
 
-},{}],4:[function(require,module,exports){
-var Modules = function(el) {
-  this.el = el;
-  this.init();
-};
-
-Modules.prototype = {
-  MenuItem: require('./menu-item'),
-  CloseButton: require('./close-button'),
-  FloatingHeaders: require('./floating-headers'),
-  MoveButtons: require('./move-buttons'),
-
-  init: function() {
-    var workLeads = this.selectElements('[data-module=FloatingHeader]');
-    var closeBtn = this.selectElements('.close-btn');
-    var menuItems = this.selectElements('.menu__item');
-    var body = this.selectElements('body');
-    var itemsMap = [];
-
-    //menu items
-    menuItems.forEach((item, i) => {
-      itemsMap.push(new this.MenuItem(item, i, menuItems, closeBtn, body));
-    });
-
-    //next buttons
-    itemsMap.forEach((itemMap, i) => new this.MoveButtons(itemMap, i, itemsMap));
-
-    //close button
-    new this.CloseButton(closeBtn, itemsMap, body);
-
-    //floating headers
-    new this.FloatingHeaders(workLeads);
-
-  },
-
-  selectElements: function(selector) {
-    let nodes = document.querySelectorAll(selector);
-    let arrayifiedNodes = [].slice.call(nodes);
-
-    return arrayifiedNodes.length === 1 ? arrayifiedNodes[0] : arrayifiedNodes;
-  }
-};
-
-module.exports = Modules;
-
-},{"./close-button":2,"./floating-headers":3,"./menu-item":5,"./move-buttons":6}],5:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var MenuItem = function(el, index, items, closeBtn, body) {
   this.el = el;
   this.tag = el.dataset.tag;
@@ -221,10 +217,6 @@ MenuItem.prototype = {
     this.aboveNeighbors = items.slice(0, index);
     this.belowNeighbors = items.slice(index + 1);
     this.content = document.getElementsByClassName("-" + this.tag)[0];
-
-    let buttons = this.content.querySelectorAll('.move-btn')
-    this.nextBtn = buttons[1];
-    this.prevBtn = buttons[0];
   },
 
   bindEvents: function() {
@@ -248,50 +240,5 @@ MenuItem.prototype = {
 };
 
 module.exports = MenuItem;
-
-},{}],6:[function(require,module,exports){
-var MoveButtons = function(itemMap, i, itemsMap) {
-  this.nextBtn = itemMap.nextBtn;
-  this.prevBtn = itemMap.prevBtn;
-  this.closeBtn = itemMap.closeBtn;
-  this.setVars(i, itemsMap);
-  this.bindEvents();
-}
-
-MoveButtons.prototype = {
-  setVars: function(i, itemsMap) {
-    let length = itemsMap.length;
-
-    this.nextNeighbor = i + 1 === length ? itemsMap[0] : itemsMap[i + 1];
-    this.prevNeighbor = i - 1 === -1 ? itemsMap[length - 1] : itemsMap[i-1];
-  },
-
-  bindEvents: function() {
-    this.nextBtn.addEventListener('click', this.openNeighbor.bind(this, this.nextNeighbor));
-    this.prevBtn.addEventListener('click', this.openNeighbor.bind(this, this.prevNeighbor));
-  },
-
-  openNeighbor: function(neighbor) {
-    this.closeBtn.click();
-    setTimeout(this.open.bind(neighbor), 500);
-  },
-
-  open: function() {
-    this.el.style.top = `${(this.el.offsetTop * -1) - 50}px`;
-    this.el.className += ' opened';
-
-    //mark that section is opened
-    this.body.className += ' active';
-
-    //move neighbors
-    this.aboveNeighbors.forEach(i => i.className += " move-up");
-    this.belowNeighbors.forEach(i => i.className += " move-down");
-
-    //bring up content into view
-    this.content.className += ' show';
-  }
-};
-
-module.exports = MoveButtons;
 
 },{}]},{},[1]);

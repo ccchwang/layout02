@@ -1,6 +1,7 @@
-var CloseButton = function(el, itemsMap) {
+var CloseButton = function(el, itemsMap, body) {
   this.el = el;
   this.itemsMap = itemsMap;
+  this.body = body;
   this.init();
 }
 
@@ -25,7 +26,7 @@ CloseButton.prototype = {
     openedSection.classList.remove('opened')
 
     //hide close button
-    this.el.classList.remove("show");
+    this.body.classList.remove("active");
 
     //move neighbors
     itemMap.aboveNeighbors.forEach(i => i.classList.remove("move-up"))

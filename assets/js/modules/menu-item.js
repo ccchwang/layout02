@@ -1,7 +1,8 @@
-var MenuItem = function(el, index, items, closeBtn) {
+var MenuItem = function(el, index, items, closeBtn, body) {
   this.el = el;
   this.tag = el.dataset.tag;
   this.closeBtn = closeBtn;
+  this.body = body;
   this.init(index, items);
 }
 
@@ -15,6 +16,10 @@ MenuItem.prototype = {
     this.aboveNeighbors = items.slice(0, index);
     this.belowNeighbors = items.slice(index + 1);
     this.content = document.getElementsByClassName("-" + this.tag)[0];
+
+    let buttons = this.content.querySelectorAll('.move-btn')
+    this.nextBtn = buttons[1];
+    this.prevBtn = buttons[0];
   },
 
   bindEvents: function() {
@@ -25,8 +30,8 @@ MenuItem.prototype = {
     this.el.style.top = `${(this.el.offsetTop * -1) - 50}px`;
     this.el.className += ' opened';
 
-    //show close button
-    this.closeBtn.className += ' show';
+    //mark that section is opened
+    this.body.className += ' active';
 
     //move neighbors
     this.aboveNeighbors.forEach(i => i.className += " move-up");

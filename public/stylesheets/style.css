@@ -190,7 +190,8 @@ html, body {
   box-sizing: border-box; }
 
 body {
-  overflow: hidden; }
+  overflow: hidden;
+  overflow-x: hidden; }
   body.pace-done {
     overflow: initial; }
 
