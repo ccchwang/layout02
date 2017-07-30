@@ -273,7 +273,7 @@ a {
     transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     top: 0; }
     .menu .menu__item .menu__item__bg {
-      background: url("../../public/img/ff.jpg") no-repeat left;
+      background: url("../img/ff.jpg") no-repeat left;
       background-size: 150%;
       height: 100%;
       position: absolute;
