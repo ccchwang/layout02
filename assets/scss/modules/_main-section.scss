@@ -11,6 +11,7 @@
 
   body.active & {
     top: -85%;
+    visibility: hidden;
     transition-delay: 0s;
   }
 
