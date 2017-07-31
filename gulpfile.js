@@ -1,15 +1,11 @@
 var gulp = require('gulp');
-
-//SASS + CSS
+var gulpif = require('gulp-if');
+var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
-var postcss = require('gulp-postcss');
-var autoprefixer = require('autoprefixer');
-var cssnano = require('cssnano');
-
-//SERVER
+var autoprefixer = require('gulp-autoprefixer');
+var cssnano = require('gulp-cssnano');
 var browserSync = require('browser-sync').create();
-
-
+var htmlmin = require('gulp-htmlmin');
 
 
 
@@ -24,52 +20,51 @@ gulp.task('browserSync', function() {
 })
 
 
-//COMPILE SASS
-gulp.task('compile-sass', function(){
+//DEVELOPMENT + PRODUCTION CSS
+gulp.task('css', function(){
   return gulp.src('assets/stylesheets/style.scss')
-    .pipe(sass()) //compile sass to css
-    .pipe(postcss([ autoprefixer({browsers: ['last 3 versions']}) ])) //autoprefixer
+    .pipe(gulpif(!global.production, sourcemaps.init()))
+    .pipe(sass())
+    .pipe(autoprefixer({browsers: ['last 3 versions']}))
+    .pipe(gulpif(global.production, cssnano({preset: 'default'})))
+    .pipe(gulpif(!global.production, sourcemaps.write()))
     .pipe(gulp.dest('public/stylesheets'))
-    .pipe(browserSync.reload({
-      stream: true
-    }))
+    .pipe(browserSync.stream())
 });
 
 
-//DEVELOPMENT + PRODUCTION CSS
-  // return gulp.src(paths.src)
-  //   .pipe(gulpif(!global.production, sourcemaps.init()))
-  //   .pipe(sass(TASK_CONFIG.stylesheets.sass))
-  //   .pipe(autoprefixer(TASK_CONFIG.stylesheets.autoprefixer))
-  //   .pipe(gulpif(global.production, cssnano(cssnanoConfig)))
-  //   .pipe(gulpif(!global.production, sourcemaps.write()))
-  //   .pipe(gulp.dest(paths.dest))
-  //   .pipe(browserSync.stream())
+//HTML
+gulp.task('html', function(){
+  return gulp.src('assets/*.html')
+    .pipe(gulpif(global.production, htmlmin({collapseWhitespace: true})))
+    .pipe(gulp.dest('public'))
+    .pipe(browserSync.stream())
+});
 
 
 
-
-//WATCH
-gulp.task('watch', ['browserSync', 'compile-sass'], function(){
-  gulp.watch('assets/stylesheets/**/*.scss', ['compile-sass']);
+//WATCH - DEVELOPMENT
+gulp.task('watch', ['browserSync', 'css', 'html'], function(){
+  gulp.watch('assets/stylesheets/**/*.scss', ['css']);
 
   // Reloads the browser whenever HTML or JS files change
-  gulp.watch('public/*.html', browserSync.reload);
+  gulp.watch('assets/*.html', ['html']);
   gulp.watch('assets/js/**/*.js', browserSync.reload);
 })
 
 
 
+//BUILD
+gulp.task('build', ['browserSync'], function(){
+  global.production = true;
 
-//CSS
-  // DEVELOPMENT
-  // 1) Compile Sass to CSS - DONE
-  // 2) Autoprefix - DONE
-  // 3) Live reload on save of asset files - DONE
+  gulp.watch('assets/stylesheets/**/*.scss', ['css']);
 
-  // PRODUCTION
-  // 1) Create source maps
-  // 2) Minify
+  // Reloads the browser whenever HTML or JS files change
+  gulp.watch('assets/*.html', ['html']);
+  gulp.watch('assets/js/**/*.js', browserSync.reload);
+})
+
 
 
 //JAVASCRIPT
@@ -92,6 +87,20 @@ gulp.task('watch', ['browserSync', 'compile-sass'], function(){
 //IMAGES
   // PRODUCTION
   // 1) Optimize
+
+
+
+  //CSS
+  // DEVELOPMENT
+  // 1) Compile Sass to CSS - DONE
+  // 2) Autoprefix - DONE
+  // 3) Create source maps -- DONE
+  // 4) Live reload on save of asset files - DONE
+
+  // PRODUCTION
+  // 1) Minify -- DONE
+
+
 
 
 //BUILD TASK FOR PROUDCTION
