@@ -8,6 +8,12 @@ var browserSync = require('browser-sync').create();
 var htmlmin = require('gulp-htmlmin');
 var webpack = require('webpack-stream');
 var uglify = require('gulp-uglify');
+var imagemin = require('gulp-imagemin');
+var cache = require('gulp-cache');
+var runSequence = require('run-sequence');
+var del = require('del');
+
+
 
 const handleError = function(err){
   console.error(err);
@@ -49,7 +55,7 @@ gulp.task('html', function(){
 
 //JAVASCRIPT
 gulp.task('javascript', function(){
-  return gulp.src('assets/js/main.js')
+  return gulp.src('assets/js/*.js')
     .pipe(webpack({
       watch: global.production ? false : true,
       module: {
@@ -74,32 +80,39 @@ gulp.task('javascript', function(){
 });
 
 
+//IMAGES
+gulp.task('images', function(){
+  return gulp.src('assets/img/**/*.+(png|jpg|gif|svg)')
+    .pipe(gulpif(global.production, cache(imagemin())))
+    .pipe(gulp.dest('public/img'))
+});
+
 
 //WATCH - DEVELOPMENT
-gulp.task('watch', ['css', 'html', 'javascript', 'browserSync'], function(){
+gulp.task('watch', ['css', 'html', 'javascript', 'images', 'browserSync'], function(){
   gulp.watch('assets/stylesheets/**/*.scss', ['css']);
-
-  // Reloads the browser whenever HTML or JS files change
   gulp.watch('assets/*.html', ['html']);
-
 })
 
+
+//CLEAN - PRODUCTION
 gulp.task('clean', function(){
-  return global.production = true;
+  global.production = true;
+  return del.sync('public');
 })
-
 
 //BUILD - PRODUCTION
-gulp.task('build', ['clean', 'css', 'html', 'javascript'], function(){
-  console.log('Finished building!')
+gulp.task('build', function(){
+  runSequence('clean',
+    ['images', 'css', 'html', 'javascript'],
+    function() {
+      console.log('Finished building~!');
+    }
+  )
 })
 
 
 
-
-//IMAGES
-  // PRODUCTION
-  // 1) Optimize
 
 
 
@@ -131,9 +144,6 @@ gulp.task('build', ['clean', 'css', 'html', 'javascript'], function(){
   // 1) Minify - DONE
 
 
-
-
-//BUILD TASK FOR PROUDCTION
-// gulp.task('build', [`clean`, `sass`, `useref`, `images`, `fonts`], function (){
-//   console.log('Building files');
-// })
+//IMAGES
+  // PRODUCTION
+  // 1) Optimize - DONE
