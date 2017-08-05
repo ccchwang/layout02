@@ -26,7 +26,7 @@
     border-bottom: 1px solid #3c1c82;
     height: calc(100vh / 6);
     position: relative;
-    transition: all 0.4s linear;
+    transition: all 0.4s ease-out;
     top: 0;
 
     .menu__item__bg {
@@ -51,8 +51,7 @@
       margin: 0px;
       position: relative;
       text-transform: uppercase;
-      transition: 0.3s $ease;
-      transition-delay: 0.15s;
+      transition: 0.3s $ease 0.15s;
       width: 100%;
       z-index: 3;
 
@@ -97,45 +96,35 @@
 
     &::before, &::after {
       height: 0%;
-      transition: 0.3s $ease;
     }
-
   }
 
 
   .menu__item.opened {
     pointer-events: none;
     height: 100vh;
-    background: #1c1d22;
 
-    // &::before {
-    //   top: -100%;
-    // }
+    &::before {
+      top: -300px;
+    }
 
-    // &::after {
-    //   bottom: -100%;
-    // }
+    &::after {
+      bottom: -300px;
+    }
 
     .menu__item__bg {
-      transition: 0.4s linear;
+      transition: 0.4s ease-out;
       transform: scale(1.3);
     }
 
     &,
+    &::before,
+    &::after,
     .menu__item__bg,
-    & ~ .move-up,
-    & ~ .move-down {
+    .menu__item__label {
       transition-delay: 0.2s;
     }
   }
-}
-
-.move-up {
-  top: -100vh !important;
-}
-
-.move-down {
-  top: 100vh !important;
 }
 
 //SETTING TOP'S ON MENU ITEMS
@@ -170,16 +159,16 @@
 
 
 .close-btn {
-    position: fixed;
+    background: none;
+    border: none;
     color: #5000ff;
-    top: 50px;
+    font-family: 'lato';
+    font-size: 25px;
     left: 30px;
     opacity: 0;
+    position: fixed;
+    top: 50px;
     z-index: 2;
-    border: none;
-    background: none;
-    font-size: 25px;
-    font-family: 'lato';
 
   &::before, &::after {
     content: '';
@@ -207,7 +196,7 @@
     transition: opacity 0.55s 0.6s, color 0.3s;
 
     &::before, &::after {
-      transition: height 0.35s $ease 0.95s, top 0.3s, background-color 0.3s;
+      transition: height 0.3s $ease 1.1s, top 0.3s, background-color 0.3s;
       height: 25px
     }
   }

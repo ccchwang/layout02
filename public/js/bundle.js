@@ -181,39 +181,38 @@
 	  },
 
 	  bindEvents: function bindEvents() {
-	    this.el.addEventListener('click', function (e) {
-	      e.preventDefault();
-	      console.log('in click handler');
-	      this.close();
-	    }.bind(this));
+	    this.el.addEventListener('click', this.close.bind(this));
 	  },
 
 	  close: function close() {
-	    //const openedSection = document.getElementsByClassName('opened')[0];
-	    console.log('close-btn');
-	    // const tag = openedSection.dataset.tag;
+	    var openedSection = document.getElementsByClassName('opened')[0];
+	    var tag = openedSection.dataset.tag;
 
-	    // //find opened section
-	    // const itemMap = this.itemsMap.filter(item => item.tag === tag)[0];
+	    //find opened section
+	    var itemMap = this.itemsMap.filter(function (item) {
+	      return item.tag === tag;
+	    })[0];
 
-	    // //close opened section
-	    // openedSection.style.top = 0;
-	    // openedSection.classList.remove('opened')
+	    //close opened section
+	    openedSection.style.top = 0;
+	    openedSection.classList.remove('opened');
 
-	    // //hide close button
-	    // this.body.classList.remove("active");
+	    //hide close button
+	    this.body.classList.remove("active");
 
-	    // //move neighbors
-	    // itemMap.aboveNeighbors.forEach(i => i.style.top = 0)
+	    //move neighbors
+	    itemMap.aboveNeighbors.forEach(function (i) {
+	      return i.style.top = 0;
+	    });
 
-	    // //hide content
-	    // itemMap.content.classList.remove('show');
+	    //hide content
+	    itemMap.content.classList.remove('show');
 
-	    // //scroll to top of window
-	    // window.scrollTo(0, 0);
+	    //scroll to top of window
+	    window.scrollTo(0, 0);
 
-	    // //scroll to top of window
-	    // openedSection.scrollIntoView(true);
+	    //scroll to top of window
+	    openedSection.scrollIntoView(true);
 	  }
 	};
 
@@ -352,35 +351,44 @@
 	  },
 
 	  bindEvents: function bindEvents() {
-	    this.nextBtn.addEventListener('click', function (e) {
-	      e.preventDefault();
-	      this.openNeighbor(this.nextNeighbor);
-	    }.bind(this));
-	    //this.prevBtn.addEventListener('click', this.openNeighbor.bind(this, this.prevNeighbor));
+	    this.nextBtn.addEventListener('click', this.openNeighbor.bind(this, this.nextNeighbor));
+	    this.prevBtn.addEventListener('click', this.openNeighbor.bind(this, this.prevNeighbor));
 	  },
 
 	  openNeighbor: function openNeighbor(neighbor) {
-	    this.closeBtn.click();
-	    console.log('hi');
-	    //setTimeout(this.open.bind(neighbor), 1000);
+	    var simulateClick = function simulateClick(elem) {
+	      // Create our event (with options)
+	      var evt = new MouseEvent('click', {
+	        bubbles: false,
+	        cancelable: true,
+	        view: window
+	      });
+	      // If cancelled, don't dispatch our event
+	      var canceled = !elem.dispatchEvent(evt);
+	    };
+
+	    simulateClick(this.closeBtn);
+	    setTimeout(this.open.bind(neighbor), 650);
 	  },
 
 	  open: function open() {
 	    var top = this.el.offsetTop * -1;
 
 	    this.el.style.top = top + 'px';
-	    //this.el.className += ' opened';
+	    this.el.className += ' opened';
 
 	    //mark that section is opened
-	    // this.body.className += ' active';
+	    this.body.className += ' active';
 
-	    // //move neighbors
-	    // setTimeout(function(){
-	    //    this.aboveNeighbors.forEach(i => i.style.top = `${top}px`);
-	    // }.bind(this), 200)
+	    //move neighbors
+	    setTimeout(function () {
+	      this.aboveNeighbors.forEach(function (i) {
+	        return i.style.top = top + 'px';
+	      });
+	    }.bind(this), 200);
 
-	    // //bring up content into view
-	    // this.content.className += ' show';
+	    //bring up content into view
+	    this.content.className += ' show';
 	  }
 	};
 

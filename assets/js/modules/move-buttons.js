@@ -15,35 +15,42 @@ MoveButtons.prototype = {
   },
 
   bindEvents: function() {
-    this.nextBtn.addEventListener('click', function(e){
-      e.preventDefault();
-      this.openNeighbor(this.nextNeighbor)
-    }.bind(this));
-    //this.prevBtn.addEventListener('click', this.openNeighbor.bind(this, this.prevNeighbor));
+    this.nextBtn.addEventListener('click', this.openNeighbor.bind(this, this.nextNeighbor));
+    this.prevBtn.addEventListener('click', this.openNeighbor.bind(this, this.prevNeighbor));
   },
 
   openNeighbor: function(neighbor) {
-    this.closeBtn.click();
-    console.log('hi')
-    //setTimeout(this.open.bind(neighbor), 1000);
+    var simulateClick = function (elem) {
+    // Create our event (with options)
+    var evt = new MouseEvent('click', {
+        bubbles: false,
+        cancelable: true,
+        view: window
+    });
+    // If cancelled, don't dispatch our event
+    var canceled = !elem.dispatchEvent(evt);
+};
+
+    simulateClick(this.closeBtn)
+    setTimeout(this.open.bind(neighbor), 650);
   },
 
   open: function() {
     let top = this.el.offsetTop * -1;
 
     this.el.style.top = `${top}px`;
-    //this.el.className += ' opened';
+    this.el.className += ' opened';
 
     //mark that section is opened
-    // this.body.className += ' active';
+    this.body.className += ' active';
 
-    // //move neighbors
-    // setTimeout(function(){
-    //    this.aboveNeighbors.forEach(i => i.style.top = `${top}px`);
-    // }.bind(this), 200)
+    //move neighbors
+    setTimeout(function(){
+       this.aboveNeighbors.forEach(i => i.style.top = `${top}px`);
+    }.bind(this), 200)
 
-    // //bring up content into view
-    // this.content.className += ' show';
+    //bring up content into view
+    this.content.className += ' show';
   }
 };
 
