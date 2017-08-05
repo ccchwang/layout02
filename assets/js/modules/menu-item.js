@@ -36,9 +36,7 @@ MenuItem.prototype = {
     this.body.className += ' active';
 
     //move neighbors
-    setTimeout(function(){
-       this.aboveNeighbors.forEach(i => i.style.top = `${top}px`);
-    }.bind(this), 200)
+    this.aboveNeighbors.forEach(i => i.className += " move-up");
 
     // this.belowNeighbors.forEach(i => i.className += " move-down");
 

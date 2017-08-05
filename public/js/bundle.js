@@ -147,11 +147,9 @@
 	    this.body.className += ' active';
 
 	    //move neighbors
-	    setTimeout(function () {
-	      this.aboveNeighbors.forEach(function (i) {
-	        return i.style.top = top + 'px';
-	      });
-	    }.bind(this), 200);
+	    this.aboveNeighbors.forEach(function (i) {
+	      return i.className += " move-up";
+	    });
 
 	    // this.belowNeighbors.forEach(i => i.className += " move-down");
 
@@ -202,7 +200,7 @@
 
 	    //move neighbors
 	    itemMap.aboveNeighbors.forEach(function (i) {
-	      return i.style.top = 0;
+	      return i.classList.remove('move-up');
 	    });
 
 	    //hide content
@@ -381,11 +379,9 @@
 	    this.body.className += ' active';
 
 	    //move neighbors
-	    setTimeout(function () {
-	      this.aboveNeighbors.forEach(function (i) {
-	        return i.style.top = top + 'px';
-	      });
-	    }.bind(this), 200);
+	    this.aboveNeighbors.forEach(function (i) {
+	      return i.className += " move-up";
+	    });
 
 	    //bring up content into view
 	    this.content.className += ' show';

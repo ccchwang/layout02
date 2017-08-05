@@ -29,7 +29,7 @@ CloseButton.prototype = {
     this.body.classList.remove("active");
 
     //move neighbors
-    itemMap.aboveNeighbors.forEach(i => i.style.top = 0)
+    itemMap.aboveNeighbors.forEach(i => i.classList.remove('move-up'))
 
     //hide content
     itemMap.content.classList.remove('show');
