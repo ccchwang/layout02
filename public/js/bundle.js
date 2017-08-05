@@ -133,14 +133,11 @@
 	  this.tag = el.dataset.tag;
 	  this.closeBtn = closeBtn;
 	  this.body = body;
-	  this.init(index, items, open);
+	  this.setVars(index, items);
+	  this.bindEvents(open);
 	};
 
 	MenuItem.prototype = {
-	  init: function init(index, items, open) {
-	    this.setVars(index, items);
-	    this.bindEvents(open);
-	  },
 
 	  setVars: function setVars(index, items) {
 	    this.aboveNeighbors = items.slice(0, index);

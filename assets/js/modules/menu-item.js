@@ -3,14 +3,11 @@ var MenuItem = function(el, index, items, closeBtn, body, open) {
   this.tag = el.dataset.tag;
   this.closeBtn = closeBtn;
   this.body = body;
-  this.init(index, items, open);
+  this.setVars(index, items);
+  this.bindEvents(open);
 }
 
 MenuItem.prototype = {
-  init: function(index, items, open) {
-    this.setVars(index, items);
-    this.bindEvents(open);
-  },
 
   setVars: function(index, items) {
     this.aboveNeighbors = items.slice(0, index);
