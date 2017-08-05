@@ -27,15 +27,20 @@ MenuItem.prototype = {
   },
 
   open: function() {
-    this.el.style.top = `${(this.el.offsetTop * -1) - 50}px`;
+    let top = this.el.offsetTop * -1;
+
+    this.el.style.top = `${top}px`;
     this.el.className += ' opened';
 
     //mark that section is opened
     this.body.className += ' active';
 
     //move neighbors
-    this.aboveNeighbors.forEach(i => i.className += " move-up");
-    this.belowNeighbors.forEach(i => i.className += " move-down");
+    setTimeout(function(){
+       this.aboveNeighbors.forEach(i => i.style.top = `${top}px`);
+    }.bind(this), 200)
+
+    // this.belowNeighbors.forEach(i => i.className += " move-down");
 
     //bring up content into view
     this.content.className += ' show';

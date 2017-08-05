@@ -15,28 +15,35 @@ MoveButtons.prototype = {
   },
 
   bindEvents: function() {
-    this.nextBtn.addEventListener('click', this.openNeighbor.bind(this, this.nextNeighbor));
-    this.prevBtn.addEventListener('click', this.openNeighbor.bind(this, this.prevNeighbor));
+    this.nextBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      this.openNeighbor(this.nextNeighbor)
+    }.bind(this));
+    //this.prevBtn.addEventListener('click', this.openNeighbor.bind(this, this.prevNeighbor));
   },
 
   openNeighbor: function(neighbor) {
     this.closeBtn.click();
-    setTimeout(this.open.bind(neighbor), 500);
+    console.log('hi')
+    //setTimeout(this.open.bind(neighbor), 1000);
   },
 
   open: function() {
-    this.el.style.top = `${(this.el.offsetTop * -1) - 50}px`;
-    this.el.className += ' opened';
+    let top = this.el.offsetTop * -1;
+
+    this.el.style.top = `${top}px`;
+    //this.el.className += ' opened';
 
     //mark that section is opened
-    this.body.className += ' active';
+    // this.body.className += ' active';
 
-    //move neighbors
-    this.aboveNeighbors.forEach(i => i.className += " move-up");
-    this.belowNeighbors.forEach(i => i.className += " move-down");
+    // //move neighbors
+    // setTimeout(function(){
+    //    this.aboveNeighbors.forEach(i => i.style.top = `${top}px`);
+    // }.bind(this), 200)
 
-    //bring up content into view
-    this.content.className += ' show';
+    // //bring up content into view
+    // this.content.className += ' show';
   }
 };
 
