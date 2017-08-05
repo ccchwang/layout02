@@ -14,8 +14,12 @@ html, body {
 body {
   overflow: hidden;
   overflow-x: hidden;
-overflow: initial
+overflow: visible
   // &.pace-done {
-  //   overflow: initial
+  //   overflow: visible
   // }
+}
+
+.screen-reader {
+  display: none;
 }
