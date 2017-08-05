@@ -78,12 +78,12 @@
 
 	    //menu items
 	    menuItems.forEach(function (item, i) {
-	      itemsMap.push(new _this.MenuItem(item, i, menuItems, closeBtn, body));
+	      itemsMap.push(new _this.MenuItem(item, i, menuItems, closeBtn, body, _this.open));
 	    });
 
 	    //next buttons
 	    itemsMap.forEach(function (itemMap, i) {
-	      return new _this.MoveButtons(itemMap, i, itemsMap);
+	      return new _this.MoveButtons(itemMap, i, itemsMap, _this.open);
 	    });
 
 	    //close button
@@ -98,6 +98,25 @@
 	    var arrayifiedNodes = [].slice.call(nodes);
 
 	    return arrayifiedNodes.length === 1 ? arrayifiedNodes[0] : arrayifiedNodes;
+	  },
+
+	  open: function open() {
+	    //scroll to top of window
+	    window.scrollTo(0, 0);
+
+	    this.el.style.top = this.el.offsetTop * -1 + 'px';
+	    this.el.className += ' opened';
+
+	    //mark that section is opened
+	    this.body.className += ' active';
+
+	    //move neighbors
+	    this.aboveNeighbors.forEach(function (i) {
+	      return i.className += " move-up";
+	    });
+
+	    //bring up content into view
+	    this.content.className += ' show';
 	  }
 	};
 
@@ -109,18 +128,18 @@
 
 	'use strict';
 
-	var MenuItem = function MenuItem(el, index, items, closeBtn, body) {
+	var MenuItem = function MenuItem(el, index, items, closeBtn, body, open) {
 	  this.el = el;
 	  this.tag = el.dataset.tag;
 	  this.closeBtn = closeBtn;
 	  this.body = body;
-	  this.init(index, items);
+	  this.init(index, items, open);
 	};
 
 	MenuItem.prototype = {
-	  init: function init(index, items) {
+	  init: function init(index, items, open) {
 	    this.setVars(index, items);
-	    this.bindEvents();
+	    this.bindEvents(open);
 	  },
 
 	  setVars: function setVars(index, items) {
@@ -133,28 +152,8 @@
 	    this.prevBtn = buttons[0];
 	  },
 
-	  bindEvents: function bindEvents() {
-	    this.el.addEventListener('click', this.open.bind(this));
-	  },
-
-	  open: function open() {
-	    var top = this.el.offsetTop * -1;
-
-	    this.el.style.top = top + 'px';
-	    this.el.className += ' opened';
-
-	    //mark that section is opened
-	    this.body.className += ' active';
-
-	    //move neighbors
-	    this.aboveNeighbors.forEach(function (i) {
-	      return i.className += " move-up";
-	    });
-
-	    // this.belowNeighbors.forEach(i => i.className += " move-down");
-
-	    //bring up content into view
-	    this.content.className += ' show';
+	  bindEvents: function bindEvents(open) {
+	    this.el.addEventListener('click', open.bind(this));
 	  }
 	};
 
@@ -205,12 +204,6 @@
 
 	    //hide content
 	    itemMap.content.classList.remove('show');
-
-	    //scroll to top of window
-	    window.scrollTo(0, 0);
-
-	    //scroll to top of window
-	    openedSection.scrollIntoView(true);
 	  }
 	};
 
@@ -332,12 +325,12 @@
 
 	'use strict';
 
-	var MoveButtons = function MoveButtons(itemMap, i, itemsMap) {
+	var MoveButtons = function MoveButtons(itemMap, i, itemsMap, open) {
 	  this.nextBtn = itemMap.nextBtn;
 	  this.prevBtn = itemMap.prevBtn;
 	  this.closeBtn = itemMap.closeBtn;
 	  this.setVars(i, itemsMap);
-	  this.bindEvents();
+	  this.bindEvents(open);
 	};
 
 	MoveButtons.prototype = {
@@ -348,43 +341,25 @@
 	    this.prevNeighbor = i - 1 === -1 ? itemsMap[length - 1] : itemsMap[i - 1];
 	  },
 
-	  bindEvents: function bindEvents() {
-	    this.nextBtn.addEventListener('click', this.openNeighbor.bind(this, this.nextNeighbor));
-	    this.prevBtn.addEventListener('click', this.openNeighbor.bind(this, this.prevNeighbor));
+	  bindEvents: function bindEvents(open) {
+	    this.nextBtn.addEventListener('click', this.openNeighbor.bind(this, this.nextNeighbor, open));
+	    this.prevBtn.addEventListener('click', this.openNeighbor.bind(this, this.prevNeighbor, open));
 	  },
 
-	  openNeighbor: function openNeighbor(neighbor) {
-	    var simulateClick = function simulateClick(elem) {
-	      // Create our event (with options)
-	      var evt = new MouseEvent('click', {
-	        bubbles: false,
-	        cancelable: true,
-	        view: window
-	      });
-	      // If cancelled, don't dispatch our event
-	      var canceled = !elem.dispatchEvent(evt);
-	    };
-
-	    simulateClick(this.closeBtn);
-	    setTimeout(this.open.bind(neighbor), 650);
+	  openNeighbor: function openNeighbor(neighbor, open) {
+	    this.simulateClick(this.closeBtn);
+	    setTimeout(open.bind(neighbor), 650);
 	  },
 
-	  open: function open() {
-	    var top = this.el.offsetTop * -1;
-
-	    this.el.style.top = top + 'px';
-	    this.el.className += ' opened';
-
-	    //mark that section is opened
-	    this.body.className += ' active';
-
-	    //move neighbors
-	    this.aboveNeighbors.forEach(function (i) {
-	      return i.className += " move-up";
+	  simulateClick: function simulateClick(elem) {
+	    // Create our event (with options)
+	    var evt = new MouseEvent('click', {
+	      bubbles: false,
+	      cancelable: true,
+	      view: window
 	    });
-
-	    //bring up content into view
-	    this.content.className += ' show';
+	    // If cancelled, don't dispatch our event
+	    var canceled = !elem.dispatchEvent(evt);
 	  }
 	};
 

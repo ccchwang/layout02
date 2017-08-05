@@ -23,22 +23,16 @@ CloseButton.prototype = {
 
     //close opened section
     openedSection.style.top = 0;
-    openedSection.classList.remove('opened')
+    openedSection.classList.remove('opened');
 
     //hide close button
     this.body.classList.remove("active");
 
     //move neighbors
-    itemMap.aboveNeighbors.forEach(i => i.classList.remove('move-up'))
+    itemMap.aboveNeighbors.forEach(i => i.classList.remove('move-up'));
 
     //hide content
     itemMap.content.classList.remove('show');
-
-    //scroll to top of window
-    window.scrollTo(0, 0);
-
-    //scroll to top of window
-    openedSection.scrollIntoView(true);
   }
 };
 
