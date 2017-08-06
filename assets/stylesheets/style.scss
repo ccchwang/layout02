@@ -1,15 +1,5 @@
 // Config
-// @import "config/colors";   // Ordering matters
-// @import "config/helpers";  // Ordering matters
-// @import "config/breakpoints";
-// @import "config/fonts";
-// @import "config/forms";
-// @import "config/grid";
-// @import "config/layout";
-// @import "config/lists";
 @import "config/transitions";
-// @import "config/typography";
-// @import "config/units";
 
 // Vendor
 @import "vendor/normalize";
@@ -17,17 +7,9 @@
 
 // Base
 @import "base/backgrounds";
-// @import "base/breakpoints";
-// @import "base/buttons";
-// @import "base/forms";
-// @import "base/grid";
 @import "base/html";
+@import "base/utilities";
 @import "base/links";
-// @import "base/lists";
-// @import "base/spacing";
-// @import "base/sprites";
-// @import "base/typography";
-// @import "base/utilities";
 
 // Modules
 @import "modules/content-section";

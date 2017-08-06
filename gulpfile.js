@@ -93,6 +93,7 @@ gulp.task('watch', ['browserSync', 'css', 'html', 'javascript', 'images'], funct
   gulp.watch('assets/stylesheets/**/*.scss', ['css']);
   gulp.watch('assets/js/**/*.js', ['javascript']);
   gulp.watch('assets/*.html', ['html']);
+  gulp.watch('assets/img/**/*.*', ['images']);
 })
 
 
