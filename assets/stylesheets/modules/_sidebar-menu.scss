@@ -18,10 +18,7 @@
 @for $i from 1 through 6 {
   .menu__item__bg {
     .menu__item:nth-child(#{$i}) & {
-      background: url("../img/#{$i}.png") no-repeat;
-      background-position-x: 5%;
-      background-position-y: center;
-      background-size: 150%;
+      background: url("../img/#{$i}.png") no-repeat left;
     }
   }
 }
@@ -44,6 +41,7 @@
     top: 0;
 
     .menu__item__bg {
+      background-size: 150%;
       height: 100%;
       position: absolute;
       transition: 0.3s $ease;
@@ -99,7 +97,6 @@
 
     .menu__item__bg {
       background-size: 115%;
-      background-position-x: center;
     }
 
     .menu__item__label {
@@ -127,9 +124,8 @@
 
     .menu__item__bg {
       transition: 0.4s ease-out;
-      background-size: cover;
-      // background-position: center center;
-      //background-position-x: 50%;
+      background-size: 270%;
+      background-position-x: -33vw;
     }
 
     &,
