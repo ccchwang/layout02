@@ -20,6 +20,7 @@
     .menu__item:nth-child(#{$i}) & {
       background: url("../img/#{$i}.png") no-repeat top left;
       background-size: 150%;
+      //background-position-x: 10%;
     }
   }
 }
@@ -97,6 +98,7 @@
 
     .menu__item__bg {
       background-size: 100%;
+     //background-position-x: 0%;
     }
 
     .menu__item__label {
@@ -125,7 +127,7 @@
     .menu__item__bg {
       transition: 0.4s ease-out;
       background-size: cover;
-      background-position-x: 0%;
+      // background-position-x: 0%;
       //background-position-x: -33vw;
     }
 
