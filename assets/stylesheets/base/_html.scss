@@ -2,7 +2,7 @@ html, body {
   background: #fff;
   max-width: 100%;
   min-height: 100%;
-  font-family: 'Roboto Mono'
+  font-family: 'Roboto Mono';
 }
 
 * {
@@ -12,9 +12,9 @@ html, body {
 }
 
 body {
-  overflow: hidden;
+  //overflow: hidden;
   overflow-x: hidden;
-overflow: visible
+
   // &.pace-done {
   //   overflow: visible
   // }
