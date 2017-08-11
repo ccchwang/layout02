@@ -11,7 +11,7 @@
   h3 {
     color: #afafaf;
     font-family: 'Montserrat';
-    font-size: 12px;
+    font-size: 12.5px;
     font-weight: 400;
     letter-spacing: 3px;
     margin-bottom: 40px;
@@ -41,6 +41,13 @@
     margin-bottom: 35px;
   }
 
+  hr {
+    background-color: #ccc;
+    height: 1px;
+    border: 0;
+    margin-top: 100px;
+  }
+
   &.show {
     visibility: inherit;
     opacity: 1;
@@ -50,6 +57,12 @@
 
   .work__lead {
     padding-bottom: 0;
+  }
+
+  .wrapper.-wireframe {
+    display: flex;
+    flex-direction: column;
+    padding: 160px 100px 140px;
   }
 }
 
@@ -85,4 +98,76 @@
     margin: 0 8% 8% 0;
     width: 42%;
   }
+}
+
+.wireframe {
+  position: relative;
+  width: 60%;
+
+  .wireframe__img {
+    width: 100%;
+    position: relative;
+  }
+
+  .purple-border {
+    border: 3px solid #5000ff;
+    height: 100%;
+    position: absolute;
+    top: 5%;
+    width: 100%;
+  }
+
+  &::before {
+    color: #5000ff;
+    font-size: 100px;
+    font-weight: 700;
+    position: absolute;
+    top: -25%;
+    z-index: 1;
+  }
+
+  &::after {
+    color: #5000ff;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    position: absolute;
+    text-transform: uppercase;
+    top: -12%;
+  }
+
+  &:nth-child(1) {
+    margin: 0 0 20% 3%;
+
+    .purple-border {
+      right: 5%;
+    }
+
+    &::before {
+      content: '01';
+      right: -15%;
+    }
+    &::after {
+      content: 'prototyping';
+      right: 23%;
+    }
+  };
+
+  &:nth-child(2) {
+    align-self: flex-end;
+    margin-right: 3%;
+
+    .purple-border {
+      left: 5%;
+    }
+
+    &::before {
+      content: '02';
+      left: -15%;
+    }
+    &::after {
+      content: 'wireframes';
+      left: 23%;
+    }
+  };
 }

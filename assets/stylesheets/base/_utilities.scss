@@ -6,48 +6,14 @@
   box-shadow: 0px 5px 7px -2px rgba(0, 0, 0, 0.4);
 }
 
-.img-wireframe {
-  width: 100%;
-}
-
-.try {
-  position: relative;
-  width: 70%;
-
-  &::before {
-        content: '01';
-    position: absolute;
-    /* width: 1px; */
-    /* height: 1px; */
-    /* font-family: 'montserrat'; */
-    font-size: 100px;
-    font-weight: 700;
-    color: #5000ff;
-    top: -15%;
-    left: -7%;
-  }
-
-  &::after {
-       content: 'lorem ipsum';
-    position: absolute;
-    font-family: 'montserrat';
-    font-weight: 700;
-    /* width: 1px; */
-    /* height: 1px; */
-    text-transform: uppercase;
-    color: #5000ff;
-    letter-spacing: 3px;
-    /* top: 150px; */
-    left: -16%;
-    bottom: 5em;
-    transform: rotate(-90deg);
-  }
-}
-
 .wrapper {
   padding: 100px;
   margin: 0 auto;
   max-width: 800px;
+
+  @media (min-width: 1600px) {
+    max-width: 900px;
+  }
 
   &.-narrow {
     padding-top: 69px;
@@ -75,22 +41,21 @@
 }
 
 .quote {
-  width: 80%;
-    margin: 45px auto;
+  border: 3px solid #5000ff;
+  margin: 60px auto;
   padding: 10%;
   position: relative;
-      border: 3px solid #5000ff;
-      border-radius: 5px;
+  width: 80%;
 
   &::before {
-        content: '“';
-    position: absolute;
     color: #5000ff;
+    content: '“';
     font-family: 'Montserrat';
-    font-weight: 700;
-    top: -53px;
-    left: -6%;
     font-size: 170px;
+    font-weight: 700;
+    left: -6%;
+    position: absolute;
+    top: -53px;
   }
 
   .quote__text {

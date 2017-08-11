@@ -1,7 +1,8 @@
 .move-btn-toolbar {
   display: flex;
   justify-content: space-around;
-  margin-top: 100px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .move-btn {
