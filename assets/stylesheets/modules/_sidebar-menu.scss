@@ -39,7 +39,7 @@
     border-bottom: 1px solid #3c1c82;
     height: calc(100vh / 6);
     position: relative;
-    transition: all 0.4s ease-out;
+    transition: all 0.45s ease-out;
     top: 0;
 
     .menu__item__bg {
@@ -125,7 +125,7 @@
     }
 
     .menu__item__bg {
-      transition: 0.4s ease-out;
+      transition: 0.45s ease-out;
       background-size: cover;
       // background-position-x: 0%;
       //background-position-x: -33vw;
