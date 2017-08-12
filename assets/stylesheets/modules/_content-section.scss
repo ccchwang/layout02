@@ -2,7 +2,6 @@
   height: 100%;
   left: 0;
   opacity: 0;
-  // overflow-x: hidden;  TODO figure out
   position: absolute;
   top: 20%;
   visibility: hidden;
@@ -10,9 +9,7 @@
 
   h3 {
     color: #afafaf;
-    font-family: $san-serif;
-    font-size: 12.5px;
-    font-weight: 400;
+    font: 400 12.5px $san-serif;
     letter-spacing: 3px;
     margin-bottom: 40px;
     text-transform: uppercase;
@@ -20,13 +17,11 @@
 
   h2 {
     color: #5000ff;
-    font-family: $san-serif;
-    text-transform: uppercase;
-    font-size: 35px;
-    font-weight: 700;
+    font: 700 35px $san-serif;
     letter-spacing: 2px;
-    margin-top: 0;
     margin-bottom: 0;
+    margin-top: 0;
+    text-transform: uppercase;
     transition: opacity 0.2s, visibility 0.2s;
   }
 
@@ -49,10 +44,10 @@
   }
 
   &.show {
-    visibility: inherit;
     opacity: 1;
     top: 0;
     transition: top 0.35s linear 0.6s, opacity 0.35s linear 0.6s;
+    visibility: inherit;
   }
 
   .work__lead {
@@ -114,18 +109,17 @@
     color: #5000ff;
     font-size: 100px;
     position: absolute;
-    top: -9%;
-    z-index: 1;
+    top: -31px;
     line-height: 0;
   }
 
   &::before {
     z-index: 3;
-    left: 2%;
+    left: 9px;
   }
 
   &::after {
-    left: 15%;
+    left: 67.5px;
     z-index: 1;
   }
 
@@ -135,19 +129,19 @@
     letter-spacing: 8px;
     position: absolute;
     text-transform: uppercase;
-    top: -19%;
-    left: 21%;
+    top: -65px;
+    left: 95px;
     z-index: 3;
 
     &::before {
-      content: '';
-      position: absolute;
-      width: 50px;
-      height: 28px;
       background: #e8ebed;
-    z-index: -1;
-    left: -5%;
-    top: 12px;
+      content: '';
+      height: 28px;
+      left: -5%;
+      position: absolute;
+      top: 12px;
+      width: 50px;
+      z-index: -1;
     }
   }
 
@@ -166,7 +160,7 @@
     align-self: flex-end;
 
     .wireframe__label {
-      left: 18%;
+      left: 81px;
     }
 
     &::before {
