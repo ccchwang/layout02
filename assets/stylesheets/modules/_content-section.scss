@@ -102,19 +102,11 @@
 
 .wireframe {
   position: relative;
-  width: 60%;
+  width: 68%;
 
   .wireframe__img {
     width: 100%;
     position: relative;
-  }
-
-  .purple-border {
-    border: 3px solid #5000ff;
-    height: 100%;
-    position: absolute;
-    top: 5%;
-    width: 100%;
   }
 
   &::before {
@@ -122,26 +114,22 @@
     font-size: 100px;
     font-weight: 700;
     position: absolute;
-    top: -25%;
+    top: -22%;
     z-index: 1;
   }
 
   &::after {
     color: #5000ff;
-    font-size: 17px;
+    font-size: 20px;
     font-weight: 700;
-    letter-spacing: 4px;
+    letter-spacing: 14px;
     position: absolute;
     text-transform: uppercase;
-    top: -12%;
+    top: -6%;
   }
 
   &:nth-child(1) {
-    margin: 0 0 20% 3%;
-
-    .purple-border {
-      right: 5%;
-    }
+    margin-bottom: 20%;
 
     &::before {
       content: '01';
@@ -149,17 +137,12 @@
     }
     &::after {
       content: 'prototyping';
-      right: 23%;
+      right: 18%;
     }
   };
 
   &:nth-child(2) {
     align-self: flex-end;
-    margin-right: 3%;
-
-    .purple-border {
-      left: 5%;
-    }
 
     &::before {
       content: '02';
@@ -167,7 +150,7 @@
     }
     &::after {
       content: 'wireframes';
-      left: 23%;
+      left: 18%;
     }
   };
 }
