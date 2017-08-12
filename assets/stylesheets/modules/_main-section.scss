@@ -56,7 +56,7 @@ $left-padding: 10%;
       .logo__content__text {
         color: #5000ff;
         display: inline-block;
-        font-family: 'Montserrat';
+        font-family: $san-serif;
         font-size: 60px;
         font-weight: 900;
         margin: 0 100% 0 0;
@@ -94,6 +94,12 @@ $left-padding: 10%;
 
       span {
         font-weight: 900;
+
+        &:hover {
+          color: #6017ff;
+          cursor: pointer;
+          font-family: $san-serif;
+        }
       }
     }
 

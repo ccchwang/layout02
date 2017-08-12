@@ -10,7 +10,7 @@
 
   h3 {
     color: #afafaf;
-    font-family: 'Montserrat';
+    font-family: $san-serif;
     font-size: 12.5px;
     font-weight: 400;
     letter-spacing: 3px;
@@ -20,7 +20,7 @@
 
   h2 {
     color: #5000ff;
-    font-family: 'Montserrat';
+    font-family: $san-serif;
     text-transform: uppercase;
     font-size: 35px;
     font-weight: 700;
@@ -62,7 +62,7 @@
   .wrapper.-wireframe {
     display: flex;
     flex-direction: column;
-    padding: 160px 100px 140px;
+    padding: 160px 100px 130px;
   }
 }
 
@@ -102,55 +102,78 @@
 
 .wireframe {
   position: relative;
-  width: 68%;
+  width: 70%;
 
   .wireframe__img {
     width: 100%;
     position: relative;
+    z-index: 2;
+  }
+
+  &::before, &::after {
+    color: #5000ff;
+    font-size: 100px;
+    position: absolute;
+    top: -9%;
+    z-index: 1;
+    line-height: 0;
   }
 
   &::before {
-    color: #5000ff;
-    font-size: 100px;
-    font-weight: 700;
-    position: absolute;
-    top: -22%;
-    z-index: 1;
+    z-index: 3;
+    left: 2%;
   }
 
   &::after {
+    left: 15%;
+    z-index: 1;
+  }
+
+  .wireframe__label {
     color: #5000ff;
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: 14px;
+    font-size: 25px;
+    letter-spacing: 8px;
     position: absolute;
     text-transform: uppercase;
-    top: -6%;
+    top: -19%;
+    left: 21%;
+    z-index: 3;
+
+    &::before {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 28px;
+      background: #e8ebed;
+    z-index: -1;
+    left: -5%;
+    top: 12px;
+    }
   }
 
   &:nth-child(1) {
-    margin-bottom: 112px;
+    margin-bottom: 135px;
 
     &::before {
-      content: '01';
-      right: -15%;
+      content: '0';
     }
     &::after {
-      content: 'prototyping';
-      right: 18%;
+      content: '1';
     }
   };
 
   &:nth-child(2) {
     align-self: flex-end;
 
+    .wireframe__label {
+      left: 18%;
+    }
+
     &::before {
-      content: '02';
-      left: -15%;
+      content: '0';
     }
     &::after {
-      content: 'wireframes';
-      left: 19%;
+      content: '2';
     }
   };
 }
