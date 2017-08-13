@@ -136,10 +136,10 @@
     &::before {
       background: #e8ebed;
       content: '';
-      height: 28px;
+      height: 25px;
       left: -5%;
       position: absolute;
-      top: 12px;
+      top: 15px;
       width: 50px;
       z-index: -1;
     }
@@ -153,6 +153,10 @@
     }
     &::after {
       content: '1';
+    }
+
+    img {
+      filter: contrast(113%) hue-rotate(170deg);
     }
   };
 

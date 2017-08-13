@@ -215,15 +215,16 @@
       height: 25px
     }
   }
-}
 
-.close-btn:hover {
-  color: white;
+  &:hover, &:focus {
+    color: white;
+    outline: none;
 
-  &::before, &::after {
-    top: 15%;
-    background-color: #5000ff;
-    opacity: 1;
+    &::before, &::after {
+      top: 15%;
+      background-color: #5000ff;
+      opacity: 1;
+    }
   }
 }
 
