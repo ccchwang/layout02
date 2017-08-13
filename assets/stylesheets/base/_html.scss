@@ -12,10 +12,57 @@ html, body {
 }
 
 body {
-  //overflow: hidden;
   overflow-x: hidden;
 
-  // &.pace-done {
-  //   overflow: visible
-  // }
+  .small-screen {
+    background: linear-gradient(45deg, #1fcbff, #ff52e1);
+    height: 100%;
+    opacity: 0;
+    position: fixed;
+    width: 100%;
+    z-index: -100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    hr {
+      border-color: inherit;
+      margin: 7% 0;
+    }
+
+    p {
+      color: white;
+      margin: 0;
+    }
+
+    span {
+      font-weight: 900;
+    }
+
+    .small-screen__wrapper {
+      border: 8px solid white;
+      max-width: 435px;
+      padding: 6%;
+    }
+
+    .small-screen__lede {
+      font: 700 50px $san-serif;
+      line-height: 1;
+    }
+
+    .small-screen__text {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    overflow: hidden;
+
+    .small-screen {
+      opacity: 1;
+      z-index: 100;
+    }
+  }
 }
+
