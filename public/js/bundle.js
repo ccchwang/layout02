@@ -236,6 +236,7 @@
 	        _this.map[i] = {
 	          header: header,
 	          content: content,
+	          lead: lead,
 	          leadHeight: lead.offsetHeight,
 	          frozenTop: 0,
 	          contentHeight: 0,
@@ -255,41 +256,47 @@
 	    var windowBottom = windowTop + this.windowHeight;
 
 	    for (var lead in this.map) {
+	      //if (this.map[lead].content.offsetParent == document.getElementsByClassName('-mekanism')[0]) {
+	      //console.log(this.map[lead].parent)
+
 	      //cache section
 	      var section = this.map[lead];
 
-	      //set height of content
-	      if (!section.contentHeight) {
-	        this.setSectionDetails(section);
-	      }
-
-	      //calculate progress from beginning to end of content
-	      var progressPercent = this.calculateProgress(windowTop, section);
-
-	      //if user has left section from bottom
-	      if (windowBottom > section.contentBottom) {
-	        if (!section.frozenTop) {
-	          section.frozenTop = this.calculateFrozenTop(progressPercent, section);
-	        }
-	        section.header.classList.add('-frozen');
-	        section.header.style.top = section.frozenTop + 'px';
-	      }
-
-	      //if user has entered section
-	      else if (windowTop > section.contentTop) {
-	          section.header.style.top = progressPercent + '%';
-	          section.header.classList.remove('-frozen');
-	          section.header.classList.add('-floating');
+	      if (section.lead.parentElement.classList.value.includes('show')) {
+	        //set height of content
+	        if (!section.contentHeight) {
+	          this.setSectionDetails(section);
 	        }
 
-	        //if user has left section from top
-	        else {
-	            section.header.classList.remove('-floating');
+	        //calculate progress from beginning to end of content
+	        var progressPercent = this.calculateProgress(windowTop, section);
+
+	        //if user has left section from bottom
+	        if (windowBottom > section.contentBottom) {
+	          if (!section.frozenTop) {
+	            section.frozenTop = this.calculateFrozenTop(progressPercent, section);
 	          }
+	          section.header.classList.add('-frozen');
+	          section.header.style.top = section.frozenTop + 'px';
+	        }
+
+	        //if user has entered section
+	        else if (windowTop > section.contentTop) {
+	            section.header.style.top = progressPercent + '%';
+	            section.header.classList.remove('-frozen');
+	            section.header.classList.add('-floating');
+	          }
+
+	          //if user has left section from top
+	          else {
+	              section.header.classList.remove('-floating');
+	            }
+	      }
 	    }
 	  },
 
 	  setSectionDetails: function setSectionDetails(section) {
+	    section.paddingTop = window.getComputedStyle(section.content.querySelector('.wrapper')).paddingTop.match(/[0-9]+/g)[0];
 	    section.contentHeight = section.content.offsetHeight;
 	    section.contentTop = section.content.offsetTop;
 	    section.contentBottom = section.contentTop + section.contentHeight;
@@ -297,10 +304,12 @@
 
 	  calculateProgress: function calculateProgress(windowTop, section) {
 	    //get pure scroll by subtracting section's offsetTop from window's scrollY
-	    var scrollY = windowTop - section.contentTop + section.leadHeight;
+	    var scrollY = windowTop - section.contentTop;
 	    var progressPercent = scrollY / section.contentHeight * 80; //scale of 0-80%
 
-	    return progressPercent;
+	    var paddingTop = section.paddingTop / this.windowHeight * 100;
+
+	    return progressPercent + paddingTop;
 	  },
 
 	  calculateFrozenTop: function calculateFrozenTop(progressPercent, section) {
