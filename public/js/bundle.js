@@ -236,7 +236,8 @@
 	        _this.map[i] = {
 	          header: header,
 	          content: content,
-	          lead: lead,
+	          wrapper: content.querySelector('.wrapper'),
+	          parentClass: lead.parentElement.classList,
 	          leadHeight: lead.offsetHeight,
 	          frozenTop: 0,
 	          contentHeight: 0,
@@ -262,7 +263,7 @@
 	      //cache section
 	      var section = this.map[lead];
 
-	      if (section.lead.parentElement.classList.value.includes('show')) {
+	      if (section.parentClass.value.includes('show')) {
 	        //set height of content
 	        if (!section.contentHeight) {
 	          this.setSectionDetails(section);
@@ -296,7 +297,7 @@
 	  },
 
 	  setSectionDetails: function setSectionDetails(section) {
-	    section.paddingTop = window.getComputedStyle(section.content.querySelector('.wrapper')).paddingTop.match(/[0-9]+/g)[0];
+	    section.paddingTop = window.getComputedStyle(section.wrapper).paddingTop.match(/[0-9]+/g)[0] / this.windowHeight * 100;
 	    section.contentHeight = section.content.offsetHeight;
 	    section.contentTop = section.content.offsetTop;
 	    section.contentBottom = section.contentTop + section.contentHeight;
@@ -307,9 +308,7 @@
 	    var scrollY = windowTop - section.contentTop;
 	    var progressPercent = scrollY / section.contentHeight * 80; //scale of 0-80%
 
-	    var paddingTop = section.paddingTop / this.windowHeight * 100;
-
-	    return progressPercent + paddingTop;
+	    return progressPercent + section.paddingTop;
 	  },
 
 	  calculateFrozenTop: function calculateFrozenTop(progressPercent, section) {

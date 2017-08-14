@@ -20,7 +20,8 @@ FloatingHeaders.prototype = {
         this.map[i] = {
           header,
           content,
-          lead,
+          wrapper: content.querySelector('.wrapper'),
+          parentClass: lead.parentElement.classList,
           leadHeight: lead.offsetHeight,
           frozenTop: 0,
           contentHeight: 0,
@@ -48,7 +49,7 @@ FloatingHeaders.prototype = {
       //cache section
       let section = this.map[lead];
 
-      if (section.lead.parentElement.classList.value.includes('show')) {
+      if (section.parentClass.value.includes('show')) {
         //set height of content
         if (!section.contentHeight) {
           this.setSectionDetails(section)
@@ -83,7 +84,7 @@ FloatingHeaders.prototype = {
   },
 
   setSectionDetails: function(section) {
-    section.paddingTop = window.getComputedStyle(section.content.querySelector('.wrapper')).paddingTop.match(/[0-9]+/g)[0];
+    section.paddingTop = ((window.getComputedStyle(section.wrapper).paddingTop.match(/[0-9]+/g)[0]) / this.windowHeight) * 100;
     section.contentHeight = section.content.offsetHeight;
     section.contentTop = section.content.offsetTop;
     section.contentBottom = section.contentTop + section.contentHeight;
@@ -94,9 +95,7 @@ FloatingHeaders.prototype = {
     let scrollY = windowTop - section.contentTop;
     let progressPercent = (scrollY / section.contentHeight) * 80;  //scale of 0-80%
 
-   let paddingTop = (section.paddingTop / this.windowHeight) * 100;
-
-    return progressPercent + paddingTop;
+    return progressPercent + section.paddingTop;
   },
 
   calculateFrozenTop: function(progressPercent, section) {
