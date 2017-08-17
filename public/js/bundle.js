@@ -64,13 +64,13 @@
 	Modules.prototype = {
 	  MenuItem: __webpack_require__(2),
 	  CloseButton: __webpack_require__(3),
-	  FloatingHeaders: __webpack_require__(4),
+	  ContentSections: __webpack_require__(4),
 	  MoveButtons: __webpack_require__(5),
 
 	  init: function init() {
 	    var _this = this;
 
-	    var workLeads = this.selectElements('[data-module=FloatingHeader]');
+	    var contentSections = this.selectElements('.work');
 	    var closeBtn = this.selectElements('.close-btn');
 	    var menuItems = this.selectElements('.menu__item');
 	    var body = this.selectElements('body');
@@ -90,7 +90,7 @@
 	    new this.CloseButton(closeBtn, itemsMap, body);
 
 	    //floating headers
-	    new this.FloatingHeaders(workLeads);
+	    new this.ContentSections(contentSections);
 	  },
 
 	  selectElements: function selectElements(selector) {
@@ -212,14 +212,15 @@
 
 	'use strict';
 
-	var FloatingHeaders = function FloatingHeaders(workLeads) {
-	  this.workLeads = workLeads;
+	var ContentSections = function ContentSections(sections) {
+	  this.sections = sections;
 	  this.map = {};
+	  this.tags = {};
 	  this.windowHeight = window.innerHeight;
 	  this.init();
 	};
 
-	FloatingHeaders.prototype = {
+	ContentSections.prototype = {
 	  init: function init() {
 	    this.setMap();
 	    this.bindEvents();
@@ -228,23 +229,28 @@
 	  setMap: function setMap() {
 	    var _this = this;
 
-	    this.workLeads.forEach(function (lead, i) {
-	      var header = lead.querySelector('.side-title');
-	      var content = lead.nextElementSibling;
+	    var leads = [].slice.call(document.querySelectorAll('[data-module=FloatingHeader]'));
 
-	      if (content) {
-	        _this.map[i] = {
-	          header: header,
+	    this.sections.forEach(function (section, i) {
+	      var sectionLeads = leads.slice(i, i + 3);
+	      var tag = section.classList[1];
+	      _this.tags[tag] = section;
+	      _this.map[tag] = [];
+
+	      sectionLeads.forEach(function (lead) {
+	        var content = lead.nextElementSibling;
+
+	        _this.map[tag].push({
+	          header: lead.querySelector('.side-title'),
 	          content: content,
 	          wrapper: content.querySelector('.wrapper'),
-	          parentClass: lead.parentElement.classList,
 	          leadHeight: lead.offsetHeight,
 	          frozenTop: 0,
 	          contentHeight: 0,
 	          contentTop: 0,
 	          contentBottom: 0
-	        };
-	      }
+	        });
+	      });
 	    });
 	  },
 
@@ -253,76 +259,79 @@
 	  },
 
 	  animateHeaders: function animateHeaders() {
+	    var _this2 = this;
+
 	    var windowTop = window.scrollY;
 	    var windowBottom = windowTop + this.windowHeight;
 
-	    for (var lead in this.map) {
-	      //if (this.map[lead].content.offsetParent == document.getElementsByClassName('-mekanism')[0]) {
-	      //console.log(this.map[lead].parent)
-
+	    for (var tag in this.tags) {
 	      //cache section
-	      var section = this.map[lead];
+	      var section = this.tags[tag];
 
-	      if (section.parentClass.value.includes('show')) {
-	        //set height of content
-	        if (!section.contentHeight) {
-	          this.setSectionDetails(section);
-	        }
+	      if (section.classList.value.includes('show')) {
+	        var floatingLeads = this.map[tag];
 
-	        //calculate progress from beginning to end of content
-	        var progressPercent = this.calculateProgress(windowTop, section);
-
-	        //if user has left section from bottom
-	        if (windowBottom > section.contentBottom) {
-	          if (!section.frozenTop) {
-	            section.frozenTop = this.calculateFrozenTop(progressPercent, section);
-	          }
-	          section.header.classList.add('-frozen');
-	          section.header.style.top = section.frozenTop + 'px';
-	        }
-
-	        //if user has entered section
-	        else if (windowTop > section.contentTop) {
-	            section.header.style.top = progressPercent + '%';
-	            section.header.classList.remove('-frozen');
-	            section.header.classList.add('-floating');
+	        floatingLeads.forEach(function (lead) {
+	          //set height of content
+	          if (!lead.contentHeight) {
+	            _this2.setLeadDetails(lead);
 	          }
 
-	          //if user has left section from top
-	          else {
-	              section.header.classList.remove('-floating');
+	          //calculate progress from beginning to end of content
+	          var progressPercent = _this2.calculateProgress(windowTop, lead);
+
+	          //if user has left lead from bottom
+	          if (windowBottom > lead.contentBottom) {
+	            if (!lead.frozenTop) {
+	              lead.frozenTop = _this2.calculateFrozenTop(progressPercent, lead);
 	            }
+	            lead.header.classList.add('-frozen');
+	            lead.header.style.top = lead.frozenTop + 'px';
+	          }
+
+	          //if user has entered lead
+	          else if (windowTop > lead.contentTop) {
+	              lead.header.style.top = progressPercent + '%';
+	              lead.header.classList.remove('-frozen');
+	              lead.header.classList.add('-floating');
+	            }
+
+	            //if user has left lead from top
+	            else {
+	                lead.header.classList.remove('-floating');
+	              }
+	        });
 	      }
 	    }
 	  },
 
-	  setSectionDetails: function setSectionDetails(section) {
-	    section.paddingTop = window.getComputedStyle(section.wrapper).paddingTop.match(/[0-9]+/g)[0] / this.windowHeight * 100;
-	    section.contentHeight = section.content.offsetHeight;
-	    section.contentTop = section.content.offsetTop;
-	    section.contentBottom = section.contentTop + section.contentHeight;
+	  setLeadDetails: function setLeadDetails(lead) {
+	    lead.paddingTop = window.getComputedStyle(lead.wrapper).paddingTop.match(/[0-9]+/g)[0] / this.windowHeight * 100;
+	    lead.contentHeight = lead.content.offsetHeight;
+	    lead.contentTop = lead.content.offsetTop;
+	    lead.contentBottom = lead.contentTop + lead.contentHeight;
 	  },
 
-	  calculateProgress: function calculateProgress(windowTop, section) {
-	    //get pure scroll by subtracting section's offsetTop from window's scrollY
-	    var scrollY = windowTop - section.contentTop;
-	    var progressPercent = scrollY / section.contentHeight * 80; //scale of 0-80%
+	  calculateProgress: function calculateProgress(windowTop, lead) {
+	    //get pure scroll by subtracting lead's offsetTop from window's scrollY
+	    var scrollY = windowTop - lead.contentTop;
+	    var progressPercent = scrollY / lead.contentHeight * 80; //scale of 0-80%
 
-	    return progressPercent + section.paddingTop;
+	    return progressPercent + lead.paddingTop;
 	  },
 
-	  calculateFrozenTop: function calculateFrozenTop(progressPercent, section) {
+	  calculateFrozenTop: function calculateFrozenTop(progressPercent, lead) {
 	    var progressDecimal = progressPercent / 100;
 
 	    var progressToPixels = progressDecimal * this.windowHeight;
 	    var pixelsLeftToBottom = this.windowHeight - progressToPixels;
 
-	    return section.contentBottom - pixelsLeftToBottom;
+	    return lead.contentBottom - pixelsLeftToBottom;
 	  }
 
 	};
 
-	module.exports = FloatingHeaders;
+	module.exports = ContentSections;
 
 /***/ }),
 /* 5 */

@@ -6,11 +6,11 @@ var Modules = function(el) {
 Modules.prototype = {
   MenuItem: require('./menu-item'),
   CloseButton: require('./close-button'),
-  FloatingHeaders: require('./floating-headers'),
+  ContentSections: require('./content-sections'),
   MoveButtons: require('./move-buttons'),
 
   init: function() {
-    var workLeads = this.selectElements('[data-module=FloatingHeader]');
+    var contentSections = this.selectElements('.work');
     var closeBtn = this.selectElements('.close-btn');
     var menuItems = this.selectElements('.menu__item');
     var body = this.selectElements('body');
@@ -28,7 +28,7 @@ Modules.prototype = {
     new this.CloseButton(closeBtn, itemsMap, body);
 
     //floating headers
-    new this.FloatingHeaders(workLeads);
+    new this.ContentSections(contentSections);
 
   },
 
