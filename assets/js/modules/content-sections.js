@@ -1,8 +1,10 @@
 var ContentSections = function(sections) {
   this.sections = sections;
   this.map = {};
-  this.tags = {};
   this.windowHeight = window.innerHeight;
+  this.lastScrollY = 0;
+  this.windowBottom = 0;
+  this.ticking = false;
   this.init();
 }
 
@@ -13,105 +15,99 @@ ContentSections.prototype = {
   },
 
   setMap: function() {
-    let leads = [].slice.call(document.querySelectorAll('[data-module=FloatingHeader]'));
+    let headers = [].slice.call(document.getElementsByClassName('side-title'));
 
     this.sections.forEach((section, i) => {
-      let sectionLeads = leads.slice(i, i + 3);
-      let tag = section.classList[1];
-      this.tags[tag] = section;
-      this.map[tag] = [];
+      this.map[i] = [];
+      let index = i * 3;
+      let sectionHeaders = headers.slice(index, index + 3);
 
-      sectionLeads.forEach(lead => {
-        let content = lead.nextElementSibling;
-
-        this.map[tag].push({
-          header: lead.querySelector('.side-title'),
-          content,
-          wrapper: content.querySelector('.wrapper'),
-          leadHeight: lead.offsetHeight,
-          frozenTop: 0,
-          contentHeight: 0,
-          contentTop: 0,
-          contentBottom: 0
+      sectionHeaders.forEach(header => {
+        this.map[i].push({
+          header,
+          content: header.parentElement.nextElementSibling,
         })
       })
     })
   },
 
   bindEvents: function() {
-    window.addEventListener('scroll', this.animateHeaders.bind(this));
+    window.addEventListener('scroll', this.onScroll.bind(this));
   },
 
-  animateHeaders: function() {
-    const windowTop = window.scrollY;
-    const windowBottom = windowTop + this.windowHeight;
+  onScroll: function() {
+    this.lastScrollY = window.scrollY;
 
-    for (var tag in this.tags) {
-      //cache section
-      let section = this.tags[tag];
-
-      if (section.classList.value.includes('show')) {
-        let floatingLeads = this.map[tag];
-
-        floatingLeads.forEach(lead => {
-          //set height of content
-          if (!lead.contentHeight) {
-            this.setLeadDetails(lead)
-          }
-
-          //calculate progress from beginning to end of content
-          let progressPercent = this.calculateProgress(windowTop, lead);
-
-          //if user has left lead from bottom
-          if (windowBottom > lead.contentBottom) {
-            if (!lead.frozenTop) {
-              lead.frozenTop = this.calculateFrozenTop(progressPercent, lead);
-            }
-            lead.header.classList.add('-frozen');
-            lead.header.style.top = `${lead.frozenTop}px`;
-          }
-
-          //if user has entered lead
-          else if (windowTop > lead.contentTop) {
-            lead.header.style.top = `${progressPercent}%`;
-            lead.header.classList.remove('-frozen')
-            lead.header.classList.add('-floating');
-          }
-
-          //if user has left lead from top
-          else {
-            lead.header.classList.remove('-floating')
-          }
-        })
-      }
+    if(!this.ticking) {
+      requestAnimationFrame(this.update.bind(this));
     }
 
+    this.ticking = true;
   },
 
-  setLeadDetails: function(lead) {
-    lead.paddingTop = ((window.getComputedStyle(lead.wrapper).paddingTop.match(/[0-9]+/g)[0]) / this.windowHeight) * 100;
-    lead.contentHeight = lead.content.offsetHeight;
-    lead.contentTop = lead.content.offsetTop;
-    lead.contentBottom = lead.contentTop + lead.contentHeight;
+  update: function() {
+    this.ticking = false;
+    this.windowBottom = this.lastScrollY + this.windowHeight;
+    this.sections.forEach(this.animateWhenOpen.bind(this));
   },
 
-  calculateProgress: function(windowTop, lead) {
-    //get pure scroll by subtracting lead's offsetTop from window's scrollY
-    let scrollY = windowTop - lead.contentTop;
-    let progressPercent = (scrollY / lead.contentHeight) * 80;  //scale of 0-80%
+  animateWhenOpen: function(section, j) {
+    if (section.classList.value.includes('show')) {
+      let sectionBlurbs = this.map[j];
 
-    return progressPercent + lead.paddingTop;
+      sectionBlurbs.forEach(blurb => {
+        if (!blurb.contentHeight) { this.setBlurbDetails(blurb) }
+        this.animateHeader.call(this, blurb);
+      });
+    }
   },
 
-  calculateFrozenTop: function(progressPercent, lead) {
+  animateHeader: function(blurb) {
+    //if user has left blurb from bottom
+    if (this.windowBottom > blurb.contentBottom) {
+      if (!blurb.frozenTop) {
+        let progressPercent = this.calculateProgress(this.lastScrollY, blurb);
+        blurb.frozenTop = this.calculateFrozenTop(progressPercent, blurb);
+      }
+      blurb.header.classList.add('-frozen');
+      blurb.header.style.top = `${blurb.frozenTop}px`;
+    }
+
+    //if user has entered header
+    else if (this.lastScrollY > blurb.contentTop) {
+      blurb.header.style.top = `${this.calculateProgress(this.lastScrollY, blurb)}%`;
+      blurb.header.classList.remove('-frozen');
+      blurb.header.classList.add('-floating');
+    }
+
+    //if user has left header from top
+    else {
+      blurb.header.classList.remove('-floating')
+    }
+  },
+
+  setBlurbDetails: function(blurb) {
+    blurb.contentHeight = blurb.content.offsetHeight;
+    blurb.contentTop = blurb.content.offsetTop;
+    blurb.contentBottom = blurb.contentTop + blurb.contentHeight;
+  },
+
+  calculateProgress: function(lastScrollY, blurb) {
+    //get pure scroll by subtracting blurb's offsetTop from window's scrollY
+    let scrollY = lastScrollY - blurb.contentTop;
+    let progressPercent = (scrollY / blurb.contentHeight) * 80;  //scale of 0-80%
+
+    return progressPercent + 8.8;
+  },
+
+  calculateFrozenTop: function(progressPercent, blurb) {
     let progressDecimal = progressPercent / 100;
 
     let progressToPixels = progressDecimal * this.windowHeight;
     let pixelsLeftToBottom = this.windowHeight - progressToPixels;
 
-    return lead.contentBottom - pixelsLeftToBottom;
+    return blurb.contentBottom - pixelsLeftToBottom;
   }
-
 };
 
 module.exports = ContentSections;

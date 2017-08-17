@@ -215,8 +215,10 @@
 	var ContentSections = function ContentSections(sections) {
 	  this.sections = sections;
 	  this.map = {};
-	  this.tags = {};
 	  this.windowHeight = window.innerHeight;
+	  this.lastScrollY = 0;
+	  this.windowBottom = 0;
+	  this.ticking = false;
 	  this.init();
 	};
 
@@ -229,106 +231,103 @@
 	  setMap: function setMap() {
 	    var _this = this;
 
-	    var leads = [].slice.call(document.querySelectorAll('[data-module=FloatingHeader]'));
+	    var headers = [].slice.call(document.getElementsByClassName('side-title'));
 
 	    this.sections.forEach(function (section, i) {
-	      var sectionLeads = leads.slice(i, i + 3);
-	      var tag = section.classList[1];
-	      _this.tags[tag] = section;
-	      _this.map[tag] = [];
+	      _this.map[i] = [];
+	      var index = i * 3;
+	      var sectionHeaders = headers.slice(index, index + 3);
 
-	      sectionLeads.forEach(function (lead) {
-	        var content = lead.nextElementSibling;
-
-	        _this.map[tag].push({
-	          header: lead.querySelector('.side-title'),
-	          content: content,
-	          wrapper: content.querySelector('.wrapper'),
-	          leadHeight: lead.offsetHeight,
-	          frozenTop: 0,
-	          contentHeight: 0,
-	          contentTop: 0,
-	          contentBottom: 0
+	      sectionHeaders.forEach(function (header) {
+	        _this.map[i].push({
+	          header: header,
+	          content: header.parentElement.nextElementSibling
 	        });
 	      });
 	    });
 	  },
 
 	  bindEvents: function bindEvents() {
-	    window.addEventListener('scroll', this.animateHeaders.bind(this));
+	    window.addEventListener('scroll', this.onScroll.bind(this));
 	  },
 
-	  animateHeaders: function animateHeaders() {
+	  onScroll: function onScroll() {
+	    this.lastScrollY = window.scrollY;
+
+	    if (!this.ticking) {
+	      requestAnimationFrame(this.update.bind(this));
+	    }
+
+	    this.ticking = true;
+	  },
+
+	  update: function update() {
+	    this.ticking = false;
+	    this.windowBottom = this.lastScrollY + this.windowHeight;
+	    this.sections.forEach(this.animateWhenOpen.bind(this));
+	  },
+
+	  animateWhenOpen: function animateWhenOpen(section, j) {
 	    var _this2 = this;
 
-	    var windowTop = window.scrollY;
-	    var windowBottom = windowTop + this.windowHeight;
+	    if (section.classList.value.includes('show')) {
+	      var sectionBlurbs = this.map[j];
 
-	    for (var tag in this.tags) {
-	      //cache section
-	      var section = this.tags[tag];
-
-	      if (section.classList.value.includes('show')) {
-	        var floatingLeads = this.map[tag];
-
-	        floatingLeads.forEach(function (lead) {
-	          //set height of content
-	          if (!lead.contentHeight) {
-	            _this2.setLeadDetails(lead);
-	          }
-
-	          //calculate progress from beginning to end of content
-	          var progressPercent = _this2.calculateProgress(windowTop, lead);
-
-	          //if user has left lead from bottom
-	          if (windowBottom > lead.contentBottom) {
-	            if (!lead.frozenTop) {
-	              lead.frozenTop = _this2.calculateFrozenTop(progressPercent, lead);
-	            }
-	            lead.header.classList.add('-frozen');
-	            lead.header.style.top = lead.frozenTop + 'px';
-	          }
-
-	          //if user has entered lead
-	          else if (windowTop > lead.contentTop) {
-	              lead.header.style.top = progressPercent + '%';
-	              lead.header.classList.remove('-frozen');
-	              lead.header.classList.add('-floating');
-	            }
-
-	            //if user has left lead from top
-	            else {
-	                lead.header.classList.remove('-floating');
-	              }
-	        });
-	      }
+	      sectionBlurbs.forEach(function (blurb) {
+	        if (!blurb.contentHeight) {
+	          _this2.setBlurbDetails(blurb);
+	        }
+	        _this2.animateHeader.call(_this2, blurb);
+	      });
 	    }
 	  },
 
-	  setLeadDetails: function setLeadDetails(lead) {
-	    lead.paddingTop = window.getComputedStyle(lead.wrapper).paddingTop.match(/[0-9]+/g)[0] / this.windowHeight * 100;
-	    lead.contentHeight = lead.content.offsetHeight;
-	    lead.contentTop = lead.content.offsetTop;
-	    lead.contentBottom = lead.contentTop + lead.contentHeight;
+	  animateHeader: function animateHeader(blurb) {
+	    //if user has left blurb from bottom
+	    if (this.windowBottom > blurb.contentBottom) {
+	      if (!blurb.frozenTop) {
+	        var progressPercent = this.calculateProgress(this.lastScrollY, blurb);
+	        blurb.frozenTop = this.calculateFrozenTop(progressPercent, blurb);
+	      }
+	      blurb.header.classList.add('-frozen');
+	      blurb.header.style.top = blurb.frozenTop + 'px';
+	    }
+
+	    //if user has entered header
+	    else if (this.lastScrollY > blurb.contentTop) {
+	        blurb.header.style.top = this.calculateProgress(this.lastScrollY, blurb) + '%';
+	        blurb.header.classList.remove('-frozen');
+	        blurb.header.classList.add('-floating');
+	      }
+
+	      //if user has left header from top
+	      else {
+	          blurb.header.classList.remove('-floating');
+	        }
 	  },
 
-	  calculateProgress: function calculateProgress(windowTop, lead) {
-	    //get pure scroll by subtracting lead's offsetTop from window's scrollY
-	    var scrollY = windowTop - lead.contentTop;
-	    var progressPercent = scrollY / lead.contentHeight * 80; //scale of 0-80%
-
-	    return progressPercent + lead.paddingTop;
+	  setBlurbDetails: function setBlurbDetails(blurb) {
+	    blurb.contentHeight = blurb.content.offsetHeight;
+	    blurb.contentTop = blurb.content.offsetTop;
+	    blurb.contentBottom = blurb.contentTop + blurb.contentHeight;
 	  },
 
-	  calculateFrozenTop: function calculateFrozenTop(progressPercent, lead) {
+	  calculateProgress: function calculateProgress(lastScrollY, blurb) {
+	    //get pure scroll by subtracting blurb's offsetTop from window's scrollY
+	    var scrollY = lastScrollY - blurb.contentTop;
+	    var progressPercent = scrollY / blurb.contentHeight * 80; //scale of 0-80%
+
+	    return progressPercent + 8.8;
+	  },
+
+	  calculateFrozenTop: function calculateFrozenTop(progressPercent, blurb) {
 	    var progressDecimal = progressPercent / 100;
 
 	    var progressToPixels = progressDecimal * this.windowHeight;
 	    var pixelsLeftToBottom = this.windowHeight - progressToPixels;
 
-	    return lead.contentBottom - pixelsLeftToBottom;
+	    return blurb.contentBottom - pixelsLeftToBottom;
 	  }
-
 	};
 
 	module.exports = ContentSections;
