@@ -11,6 +11,7 @@ var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin');
 var cache = require('gulp-cache');
 var runSequence = require('run-sequence');
+var gzip = require('gulp-gzip');
 var del = require('del');
 
 
@@ -37,8 +38,9 @@ gulp.task('css', function(){
     .pipe(sass())
     .on('error', handleError)
     .pipe(autoprefixer({browsers: ['last 3 versions']}))
-    .pipe(gulpif(global.production, cssnano({preset: 'default'})))
     .pipe(gulpif(!global.production, sourcemaps.write()))
+    .pipe(gulpif(global.production, cssnano({preset: 'default'})))
+    .pipe(gulpif(global.production, gzip()))
     .pipe(gulp.dest('docs/stylesheets'))
     .pipe(browserSync.stream())
 });
@@ -75,6 +77,7 @@ gulp.task('javascript', function(){
     }))
     .on('error', handleError)
     .pipe(gulpif(global.production, uglify()))
+    .pipe(gulpif(global.production, gzip()))
     .pipe(gulp.dest('docs/js'))
     .pipe(browserSync.stream())
 });
