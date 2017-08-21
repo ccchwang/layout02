@@ -119,7 +119,7 @@
   }
 
   &::after {
-    left: 67.5px;
+    left: 68px;
     z-index: 1;
   }
 
@@ -129,17 +129,17 @@
     letter-spacing: 8px;
     position: absolute;
     text-transform: uppercase;
-    top: -65px;
+    top: -59px;
     left: 95px;
     z-index: 3;
 
     &::before {
       background: #e8ebed;
       content: '';
-      height: 25px;
+      height: 20px;
       left: -5%;
       position: absolute;
-      top: 15px;
+      top: 14px;
       width: 50px;
       z-index: -1;
     }
@@ -164,7 +164,7 @@
     align-self: flex-end;
 
     .wireframe__label {
-      left: 81px;
+      left: 79px;
     }
 
     &::before {
