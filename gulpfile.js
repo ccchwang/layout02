@@ -24,7 +24,7 @@ const handleError = function(err){
 gulp.task('browserSync', function() {
   browserSync.init({
     server: {
-      baseDir: 'public'
+      baseDir: 'docs'
     },
   })
 })
@@ -39,7 +39,7 @@ gulp.task('css', function(){
     .pipe(autoprefixer({browsers: ['last 3 versions']}))
     .pipe(gulpif(global.production, cssnano({preset: 'default'})))
     .pipe(gulpif(!global.production, sourcemaps.write()))
-    .pipe(gulp.dest('public/stylesheets'))
+    .pipe(gulp.dest('docs/stylesheets'))
     .pipe(browserSync.stream())
 });
 
@@ -48,7 +48,7 @@ gulp.task('css', function(){
 gulp.task('html', function(){
   return gulp.src('assets/*.html')
     .pipe(gulpif(global.production, htmlmin({collapseWhitespace: true})))
-    .pipe(gulp.dest('public'))
+    .pipe(gulp.dest('docs'))
     .pipe(browserSync.stream())
 });
 
@@ -75,7 +75,7 @@ gulp.task('javascript', function(){
     }))
     .on('error', handleError)
     .pipe(gulpif(global.production, uglify()))
-    .pipe(gulp.dest('public/js'))
+    .pipe(gulp.dest('docs/js'))
     .pipe(browserSync.stream())
 });
 
@@ -84,7 +84,7 @@ gulp.task('javascript', function(){
 gulp.task('images', function(){
   return gulp.src('assets/img/**/*.+(png|jpg|gif|svg)')
     .pipe(gulpif(global.production, cache(imagemin())))
-    .pipe(gulp.dest('public/img'))
+    .pipe(gulp.dest('docs/img'))
 });
 
 
@@ -100,7 +100,7 @@ gulp.task('watch', ['browserSync', 'css', 'html', 'javascript', 'images'], funct
 //CLEAN - PRODUCTION
 gulp.task('clean', function(){
   global.production = true;
-  return del.sync('public');
+  return del.sync('docs');
 })
 
 //BUILD - PRODUCTION
