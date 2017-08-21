@@ -50,7 +50,6 @@ gulp.task('css', function(){
 gulp.task('html', function(){
   return gulp.src('assets/*.html')
     .pipe(gulpif(global.production, htmlmin({collapseWhitespace: true})))
-    .pipe(gulpif(global.production, gzip()))
     .pipe(gulp.dest('docs'))
     .pipe(browserSync.stream())
 });
