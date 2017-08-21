@@ -1,9 +1,9 @@
-var MoveButtons = function(itemMap, i, itemsMap) {
+var MoveButtons = function(itemMap, i, itemsMap, open) {
   this.nextBtn = itemMap.nextBtn;
   this.prevBtn = itemMap.prevBtn;
   this.closeBtn = itemMap.closeBtn;
   this.setVars(i, itemsMap);
-  this.bindEvents();
+  this.bindEvents(open);
 }
 
 MoveButtons.prototype = {
@@ -14,29 +14,25 @@ MoveButtons.prototype = {
     this.prevNeighbor = i - 1 === -1 ? itemsMap[length - 1] : itemsMap[i-1];
   },
 
-  bindEvents: function() {
-    this.nextBtn.addEventListener('click', this.openNeighbor.bind(this, this.nextNeighbor));
-    this.prevBtn.addEventListener('click', this.openNeighbor.bind(this, this.prevNeighbor));
+  bindEvents: function(open) {
+    this.nextBtn.addEventListener('click', this.openNeighbor.bind(this, this.nextNeighbor, open));
+    this.prevBtn.addEventListener('click', this.openNeighbor.bind(this, this.prevNeighbor, open));
   },
 
-  openNeighbor: function(neighbor) {
-    this.closeBtn.click();
-    setTimeout(this.open.bind(neighbor), 500);
+  openNeighbor: function(neighbor, open) {
+    this.simulateClick(this.closeBtn);
+    setTimeout(open.bind(neighbor), 650);
   },
 
-  open: function() {
-    this.el.style.top = `${(this.el.offsetTop * -1) - 50}px`;
-    this.el.className += ' opened';
-
-    //mark that section is opened
-    this.body.className += ' active';
-
-    //move neighbors
-    this.aboveNeighbors.forEach(i => i.className += " move-up");
-    this.belowNeighbors.forEach(i => i.className += " move-down");
-
-    //bring up content into view
-    this.content.className += ' show';
+  simulateClick: function(elem) {
+    // Create our event (with options)
+    var evt = new MouseEvent('click', {
+        bubbles: false,
+        cancelable: true,
+        view: window
+    });
+    // If cancelled, don't dispatch our event
+    var canceled = !elem.dispatchEvent(evt);
   }
 };
 

@@ -57,7 +57,7 @@ gulp.task('html', function(){
 gulp.task('javascript', function(){
   return gulp.src('assets/js/*.js')
     .pipe(webpack({
-      watch: global.production ? false : true,
+      //watch: global.production ? false : true,
       module: {
         loaders: [
           {
@@ -89,9 +89,11 @@ gulp.task('images', function(){
 
 
 //WATCH - DEVELOPMENT
-gulp.task('watch', ['css', 'html', 'javascript', 'images', 'browserSync'], function(){
+gulp.task('watch', ['browserSync', 'css', 'html', 'javascript', 'images'], function(){
   gulp.watch('assets/stylesheets/**/*.scss', ['css']);
+  gulp.watch('assets/js/**/*.js', ['javascript']);
   gulp.watch('assets/*.html', ['html']);
+  gulp.watch('assets/img/**/*.*', ['images']);
 })
 
 

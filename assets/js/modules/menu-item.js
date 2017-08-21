@@ -1,16 +1,13 @@
-var MenuItem = function(el, index, items, closeBtn, body) {
+var MenuItem = function(el, index, items, closeBtn, body, open) {
   this.el = el;
   this.tag = el.dataset.tag;
   this.closeBtn = closeBtn;
   this.body = body;
-  this.init(index, items);
+  this.setVars(index, items);
+  this.bindEvents(open);
 }
 
 MenuItem.prototype = {
-  init: function(index, items) {
-    this.setVars(index, items);
-    this.bindEvents();
-  },
 
   setVars: function(index, items) {
     this.aboveNeighbors = items.slice(0, index);
@@ -22,23 +19,8 @@ MenuItem.prototype = {
     this.prevBtn = buttons[0];
   },
 
-  bindEvents: function() {
-    this.el.addEventListener('click', this.open.bind(this));
-  },
-
-  open: function() {
-    this.el.style.top = `${(this.el.offsetTop * -1) - 50}px`;
-    this.el.className += ' opened';
-
-    //mark that section is opened
-    this.body.className += ' active';
-
-    //move neighbors
-    this.aboveNeighbors.forEach(i => i.className += " move-up");
-    this.belowNeighbors.forEach(i => i.className += " move-down");
-
-    //bring up content into view
-    this.content.className += ' show';
+  bindEvents: function(open) {
+    this.el.addEventListener('click', open.bind(this));
   }
 };
 

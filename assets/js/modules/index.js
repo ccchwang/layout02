@@ -6,11 +6,11 @@ var Modules = function(el) {
 Modules.prototype = {
   MenuItem: require('./menu-item'),
   CloseButton: require('./close-button'),
-  FloatingHeaders: require('./floating-headers'),
+  ContentSections: require('./content-sections'),
   MoveButtons: require('./move-buttons'),
 
   init: function() {
-    var workLeads = this.selectElements('[data-module=FloatingHeader]');
+    var contentSections = this.selectElements('.work');
     var closeBtn = this.selectElements('.close-btn');
     var menuItems = this.selectElements('.menu__item');
     var body = this.selectElements('body');
@@ -18,17 +18,17 @@ Modules.prototype = {
 
     //menu items
     menuItems.forEach((item, i) => {
-      itemsMap.push(new this.MenuItem(item, i, menuItems, closeBtn, body));
+      itemsMap.push(new this.MenuItem(item, i, menuItems, closeBtn, body, this.open));
     });
 
     //next buttons
-    itemsMap.forEach((itemMap, i) => new this.MoveButtons(itemMap, i, itemsMap));
+    itemsMap.forEach((itemMap, i) => new this.MoveButtons(itemMap, i, itemsMap, this.open));
 
     //close button
     new this.CloseButton(closeBtn, itemsMap, body);
 
     //floating headers
-    new this.FloatingHeaders(workLeads);
+    new this.ContentSections(contentSections);
 
   },
 
@@ -37,6 +37,23 @@ Modules.prototype = {
     let arrayifiedNodes = [].slice.call(nodes);
 
     return arrayifiedNodes.length === 1 ? arrayifiedNodes[0] : arrayifiedNodes;
+  },
+
+  open: function() {
+    //scroll to top of window
+    window.scrollTo(0, 0);
+
+    this.el.style.top = `${this.el.offsetTop * -1}px`;
+    this.el.className += ' opened';
+
+    //mark that section is opened
+    this.body.className += ' active';
+
+    //move neighbors
+    this.aboveNeighbors.forEach(i => i.className += " move-up");
+
+    //bring up content into view
+    this.content.className += ' show';
   }
 };
 
