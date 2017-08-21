@@ -1,3 +1,5 @@
+$left-padding: 10%;
+
 .main {
   width: 100vw;
   height: 100%;
@@ -10,19 +12,128 @@
   transition: 0.5s $ease 0.1s;
 
   body.active & {
-    top: -85%;
+    top: -93%;
     visibility: hidden;
     transition-delay: 0s;
   }
 
   body.pace-done & {
-    width: 60vw;
+    width: 60%;
     transition-delay: 0s;
   }
 
-  img {
-    width: 300px;
-    height: 300px
+  .logo {
+    border-width: 8px;
+    border-style: solid;
+    border-image: linear-gradient(to left, #ff52e1, #1fcbff);
+    border-image-slice: 1;
+    position: relative;
+    width: 400px;
+
+    &::before {
+      content: '+';
+      position: absolute;
+      padding: 0 15.5px 7px;
+      font-size: 35px;
+      border-bottom: 8px solid #e560e4;
+      border-left: 8px solid #df63e5;
+      color: #e560e4;
+      right: 0;
+    }
+
+    .logo__content {
+      margin: 27px 0 53px;
+      padding-left: 10%;
+      width: 100%;
+
+      .logo__content__num {
+        color: #b9e5f2;
+        font-size: 95px;
+        letter-spacing: -10px;
+        margin: 0;
+      }
+
+      .logo__content__text {
+        color: #5000ff;
+        display: inline-block;
+        font-family: $san-serif;
+        font-size: 60px;
+        font-weight: 900;
+        margin: 0 100% 0 0;
+        position: relative;
+        text-transform: uppercase;
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: 100%;
+          height: 30%;
+          background: #e5d9ff;
+          left: 0;
+          bottom: 0;
+          z-index: -1;
+        }
+      }
+    }
+
+    .logo__footer {
+      border-top: inherit;
+      border-image: inherit;
+      border-image-slice: inherit;
+      height: 20%;
+      padding: 19px $left-padding;
+      width: 100%;
+
+      p {
+        color: #3d3d3d;
+        font-size: 13px;
+        letter-spacing: 2px;
+        margin: 0;
+        text-transform: uppercase;
+      }
+
+      span {
+        font-weight: 900;
+
+        &:hover {
+          color: #6017ff;
+          cursor: pointer;
+          font-family: $san-serif;
+        }
+      }
+    }
+
+    body.pace-done & {
+      width: 300px;
+      border-width: 6px;
+
+      &::before {
+        font-size: 20px;
+        border-width: inherit;
+        padding: 3px 12px 7px;
+      }
+
+      .logo__content {
+        margin: 21px 0 40px;
+      }
+
+      .logo__content__num {
+        font-size: 70px;
+      }
+
+      .logo__content__text {
+        font-size: 45px;
+      }
+
+      .logo__footer {
+        border-top-width: inherit;
+        padding: 14px $left-padding;
+
+        p {
+          font-size: 11px;
+        }
+      }
+    }
   }
 
 
