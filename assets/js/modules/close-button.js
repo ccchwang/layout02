@@ -22,7 +22,7 @@ CloseButton.prototype = {
     const itemMap = this.itemsMap.filter(item => item.tag === tag)[0];
 
     //close opened section
-    openedSection.style.top = 0;
+    openedSection.style.transform = 'translateY(0px)';
     openedSection.classList.remove('opened');
 
     //hide close button

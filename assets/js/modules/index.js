@@ -43,7 +43,7 @@ Modules.prototype = {
     //scroll to top of window
     window.scrollTo(0, 0);
 
-    this.el.style.top = `${this.el.offsetTop * -1}px`;
+    this.el.style.transform = `translateY(${this.el.offsetTop * -1}px)`;
     this.el.className += ' opened';
 
     //mark that section is opened
