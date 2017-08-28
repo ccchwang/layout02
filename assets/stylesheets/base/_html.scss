@@ -35,10 +35,6 @@ body {
       margin: 0;
     }
 
-    span {
-      font-weight: 900;
-    }
-
     .small-screen__wrapper {
       border: 8px solid white;
       max-width: 435px;
@@ -53,6 +49,18 @@ body {
     .small-screen__text {
       text-transform: uppercase;
       letter-spacing: 3px;
+
+      a, span {
+        font-weight: 900;
+      }
+
+      a {
+        transition: 0.2s;
+
+        &:hover, &:focus {
+          color: #5000ff;
+        }
+      }
     }
   }
 

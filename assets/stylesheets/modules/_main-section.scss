@@ -94,10 +94,13 @@ $left-padding: 10%;
 
       span {
         font-weight: 900;
+      }
 
-        &:hover {
+      a {
+        font-weight: 900;
+
+        &:hover, &:focus {
           color: #6017ff;
-          cursor: pointer;
           font-family: $san-serif;
         }
       }
