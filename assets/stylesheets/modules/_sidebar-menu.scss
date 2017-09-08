@@ -35,7 +35,6 @@
 
 
   .menu__item {
-    border-bottom: 1px solid #3c1c82;
     height: calc(100vh / 6);
     position: relative;
     transition: all 0.45s ease-out;
@@ -51,6 +50,7 @@
 
     .menu__item__label {
       align-items: center;
+      border-bottom: 1px solid #3c1c82;
       color: #9999af;
       cursor: pointer;
       display: flex;
@@ -61,7 +61,6 @@
       margin: 0px;
       position: relative;
       text-transform: uppercase;
-      transition: 0.3s $ease 0.15s;
       width: 100%;
       z-index: 3;
 
@@ -69,13 +68,14 @@
         background: linear-gradient(45deg, #ff52e1, #1fcbff);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        transition: 0.3s $ease 0.15s;
       }
     }
 
     &::before, &::after {
       background: #1c1d22;
       content: '';
-      height: 51%;
+      height: 52%;
       position: absolute;
       transition: 0.3s $ease;
       width: 100%;
@@ -100,7 +100,7 @@
      //background-position-x: 0%;
     }
 
-    .menu__item__label {
+    .menu__item__label span {
       opacity: 0;
       transition: 0.1s $ease;
     }
@@ -134,7 +134,7 @@
     &::before,
     &::after,
     .menu__item__bg,
-    .menu__item__label {
+    .menu__item__label span {
       transition-delay: 0.2s;
     }
   }
