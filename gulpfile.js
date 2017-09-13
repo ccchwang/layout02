@@ -89,7 +89,7 @@ gulp.task('images', function(){
 
 
 //WATCH - DEVELOPMENT
-gulp.task('watch', ['browserSync', 'css', 'html', 'javascript', 'images'], function(){
+gulp.task('watch', ['html', 'browserSync', 'css', 'javascript', 'images'], function(){
   gulp.watch('assets/stylesheets/**/*.scss', ['css']);
   gulp.watch('assets/js/**/*.js', ['javascript']);
   gulp.watch('assets/*.html', ['html']);
