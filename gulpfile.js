@@ -89,11 +89,16 @@ gulp.task('images', function(){
 
 
 //WATCH - DEVELOPMENT
-gulp.task('watch', ['html', 'browserSync', 'css', 'javascript', 'images'], function(){
-  gulp.watch('assets/stylesheets/**/*.scss', ['css']);
-  gulp.watch('assets/js/**/*.js', ['javascript']);
-  gulp.watch('assets/*.html', ['html']);
-  gulp.watch('assets/img/**/*.*', ['images']);
+gulp.task('watch', function(){
+  runSequence('html',
+    ['css', 'javascript', 'images', 'browserSync'],
+    function() {
+      gulp.watch('assets/stylesheets/**/*.scss', ['css']);
+      gulp.watch('assets/js/**/*.js', ['javascript']);
+      gulp.watch('assets/*.html', ['html']);
+      gulp.watch('assets/img/**/*.*', ['images']);
+    }
+  )
 })
 
 

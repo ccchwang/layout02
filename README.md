@@ -12,8 +12,10 @@ Requires Node v6+. I recommend using [NVM](https://github.com/creationix/nvm) to
 
 Source files are in `assets` and public files in `docs`.
 
-#### Install dependencies
+#### Clone repo and install dependencies
 ```bash
+git clone https://github.com/chloehwang/transition01.git
+cd transition01
 npm install
 ```
 
