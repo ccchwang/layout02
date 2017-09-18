@@ -1,6 +1,6 @@
 # transition01
 
-A microsite experimenting with unique page transitions and animations. Hand-coded by [Chloe Hwang](https://chloehwang.github.io).
+A microsite experimenting with unique page transitions and floating header animations. Hand-coded by [Chloe Hwang](https://chloehwang.github.io).
 
 Inspired by this [design concept](https://dribbble.com/shots/3059607-Mossio-Concept) from [Mossio](https://mossio.co/) and [Kovastudio](http://kovastudio.com/).
 
