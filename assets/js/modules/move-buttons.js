@@ -1,6 +1,6 @@
 var MoveButtons = function(itemMap, i, itemsMap, open) {
-  this.nextBtn = itemMap.nextBtn;
-  this.prevBtn = itemMap.prevBtn;
+  this.nextBtn  = itemMap.nextBtn;
+  this.prevBtn  = itemMap.prevBtn;
   this.closeBtn = itemMap.closeBtn;
   this.setVars(i, itemsMap);
   this.bindEvents(open);
@@ -15,13 +15,13 @@ MoveButtons.prototype = {
   },
 
   bindEvents: function(open) {
-    this.nextBtn.addEventListener('click', this.openNeighbor.bind(this, this.nextNeighbor, open));
-    this.prevBtn.addEventListener('click', this.openNeighbor.bind(this, this.prevNeighbor, open));
+    this.nextBtn.addEventListener('click', this.onClick.bind(this, this.nextNeighbor, open));
+    this.prevBtn.addEventListener('click', this.onClick.bind(this, this.prevNeighbor, open));
   },
 
-  openNeighbor: function(neighbor, open) {
+  onClick: function(neighbor, open) {
     this.simulateClick(this.closeBtn);
-    setTimeout(open.bind(neighbor), 650);
+    this.openNeighbor(neighbor, open);
   },
 
   simulateClick: function(elem) {
@@ -33,6 +33,10 @@ MoveButtons.prototype = {
     });
     // If cancelled, don't dispatch our event
     var canceled = !elem.dispatchEvent(evt);
+  },
+
+  openNeighbor: function(neighbor, open) {
+    setTimeout(open.bind(neighbor), 650);
   }
 };
 

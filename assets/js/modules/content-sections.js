@@ -1,19 +1,15 @@
 var ContentSections = function(sections) {
-  this.sections = sections;
-  this.map = {};
+  this.sections     = sections;
+  this.map          = {};
   this.windowHeight = window.innerHeight;
-  this.lastScrollY = 0;
+  this.lastScrollY  = 0;
   this.windowBottom = 0;
-  this.ticking = false;
-  this.init();
+  this.ticking      = false;
+  this.setMap();
+  this.bindEvents();
 }
 
 ContentSections.prototype = {
-  init: function() {
-    this.setMap();
-    this.bindEvents();
-  },
-
   setMap: function() {
     let headers = [].slice.call(document.getElementsByClassName('side-title'));
 
@@ -56,33 +52,12 @@ ContentSections.prototype = {
       let sectionBlurbs = this.map[j];
 
       sectionBlurbs.forEach(blurb => {
-        if (!blurb.contentHeight) { this.setBlurbDetails(blurb) }
+        if (!blurb.contentHeight) {
+          this.setBlurbDetails(blurb)
+        }
+
         this.animateHeader.call(this, blurb);
       });
-    }
-  },
-
-  animateHeader: function(blurb) {
-    //if user has left blurb from bottom
-    if (this.windowBottom > blurb.contentBottom) {
-      if (!blurb.frozenTop) {
-        let progressPercent = this.calculateProgress(this.lastScrollY, blurb);
-        blurb.frozenTop = this.calculateFrozenTop(progressPercent, blurb);
-      }
-      blurb.header.classList.add('-frozen');
-      blurb.header.style.top = `${blurb.frozenTop}px`;
-    }
-
-    //if user has entered header
-    else if (this.lastScrollY > blurb.contentTop) {
-      blurb.header.style.top = `${this.calculateProgress(this.lastScrollY, blurb)}%`;
-      blurb.header.classList.remove('-frozen');
-      blurb.header.classList.add('-floating');
-    }
-
-    //if user has left header from top
-    else {
-      blurb.header.classList.remove('-floating')
     }
   },
 
@@ -90,6 +65,36 @@ ContentSections.prototype = {
     blurb.contentHeight = blurb.content.offsetHeight;
     blurb.contentTop = blurb.content.offsetTop;
     blurb.contentBottom = blurb.contentTop + blurb.contentHeight;
+  },
+
+  animateHeader: function(blurb) {
+    let leftBlurbFromBottom = this.windowBottom > blurb.contentBottom;
+    let enteredHeader = this.lastScrollY > blurb.contentTop;
+
+    if (leftBlurbFromBottom) {
+      this.freezeHeader(blurb);
+    }
+    else if (enteredHeader) {
+      this.floatHeader(blurb);
+    }
+    else {
+      blurb.header.classList.remove('-floating')
+    }
+  },
+
+  freezeHeader: function(blurb) {
+    if (!blurb.frozenTop) {
+      let progressPercent = this.calculateProgress(this.lastScrollY, blurb);
+      blurb.frozenTop = this.calculateFrozenTop(progressPercent, blurb);
+    }
+    blurb.header.classList.add('-frozen');
+    blurb.header.style.top = `${blurb.frozenTop}px`;
+  },
+
+  floatHeader: function(blurb) {
+    blurb.header.style.top = `${this.calculateProgress(this.lastScrollY, blurb)}%`;
+    blurb.header.classList.remove('-frozen');
+    blurb.header.classList.add('-floating');
   },
 
   calculateProgress: function(lastScrollY, blurb) {

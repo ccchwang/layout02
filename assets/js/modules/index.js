@@ -11,25 +11,14 @@ Modules.prototype = {
 
   init: function() {
     var contentSections = this.selectElements('.work');
-    var closeBtn = this.selectElements('.close-btn');
-    var menuItems = this.selectElements('.menu__item');
-    var body = this.selectElements('body');
-    var itemsMap = [];
+    var menuItems       = this.selectElements('.menu__item');
+    this.closeBtn       = this.selectElements('.close-btn');
+    this.body           = this.selectElements('body');
+    this.itemsMap       = this.setItemsMap(menuItems);
 
-    //menu items
-    menuItems.forEach((item, i) => {
-      itemsMap.push(new this.MenuItem(item, i, menuItems, closeBtn, body, this.open));
-    });
-
-    //next buttons
-    itemsMap.forEach((itemMap, i) => new this.MoveButtons(itemMap, i, itemsMap, this.open));
-
-    //close button
-    new this.CloseButton(closeBtn, itemsMap, body);
-
-    //floating headers
-    new this.ContentSections(contentSections);
-
+    this.createMoveButtons();
+    this.createCloseButton();
+    this.createFloatingHeaders(contentSections);
   },
 
   selectElements: function(selector) {
@@ -37,6 +26,30 @@ Modules.prototype = {
     let arrayifiedNodes = [].slice.call(nodes);
 
     return arrayifiedNodes.length === 1 ? arrayifiedNodes[0] : arrayifiedNodes;
+  },
+
+  setItemsMap: function(menuItems) {
+    let map = [];
+
+    menuItems.forEach((item, i) => {
+      map.push(new this.MenuItem(item, i, menuItems, this.closeBtn, this.body, this.open));
+    });
+
+    return map;
+  },
+
+  createMoveButtons: function() {
+    this.itemsMap.forEach((itemMap, i) =>
+      new this.MoveButtons(itemMap, i, this.itemsMap, this.open)
+    );
+  },
+
+  createCloseButton: function() {
+    new this.CloseButton(this.closeBtn, this.itemsMap, this.body);
+  },
+
+  createFloatingHeaders: function(contentSections) {
+    new this.ContentSections(contentSections);
   },
 
   open: function() {
