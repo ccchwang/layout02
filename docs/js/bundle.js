@@ -166,40 +166,43 @@
 	  this.el = el;
 	  this.itemsMap = itemsMap;
 	  this.body = body;
-	  this.init();
+	  this.bindEvents();
 	};
 
 	CloseButton.prototype = {
-	  init: function init() {
-	    this.bindEvents();
-	  },
-
 	  bindEvents: function bindEvents() {
-	    this.el.addEventListener('click', this.close.bind(this));
+	    this.el.addEventListener('click', this.onClick.bind(this));
 	  },
 
-	  close: function close() {
+	  onClick: function onClick() {
 	    var openedSection = document.getElementsByClassName('opened')[0];
 	    var tag = openedSection.dataset.tag;
-
-	    //find opened section
 	    var itemMap = this.itemsMap.filter(function (item) {
 	      return item.tag === tag;
 	    })[0];
 
-	    //close opened section
+	    this.closeOpenSection(openedSection);
+	    this.hideButton();
+	    this.moveNeighors(itemMap);
+	    this.hideContent(itemMap);
+	  },
+
+	  closeOpenSection: function closeOpenSection(openedSection) {
 	    openedSection.style.transform = 'translateY(0px)';
 	    openedSection.classList.remove('opened');
+	  },
 
-	    //hide close button
+	  hideButton: function hideButton() {
 	    this.body.classList.remove("active");
+	  },
 
-	    //move neighbors
+	  moveNeighors: function moveNeighors(itemMap) {
 	    itemMap.aboveNeighbors.forEach(function (i) {
 	      return i.classList.remove('move-up');
 	    });
+	  },
 
-	    //hide content
+	  hideContent: function hideContent(itemMap) {
 	    itemMap.content.classList.remove('show');
 	  }
 	};
