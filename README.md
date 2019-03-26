@@ -6,6 +6,7 @@ Inspired by this [design concept](https://dribbble.com/shots/3059607-Mossio-Conc
 
 See the final product [HERE](https://ccchwang.github.io/transition01/).
 
+![](https://i.ibb.co/dbNpMVc/Screen-Shot-2019-03-26-at-5-05-09-PM.png)
 
 ## Installation
 Requires Node v6+. I recommend using [NVM](https://github.com/creationix/nvm) to manage versions.
