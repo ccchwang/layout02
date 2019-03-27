@@ -2,9 +2,9 @@
 
 A microsite experimenting with unique page transitions and floating header animations. Hand-coded by [Cho Hwang](https://chohwang.com).
 
-Inspired by this [design concept](https://dribbble.com/shots/3059607-Mossio-Concept) from [Mossio](https://mossio.co/) and [Kovastudio](http://kovastudio.com/).
+Inspired by this [design concept](https://dribbble.com/shots/3059607-Mossio-Concept) from [Mossio](https://mossio.co/) and Kovastudio.
 
-See the final product [HERE](https://ccchwang.github.io/layout02/).
+See live at [ccchwang.github.io/layout02](https://ccchwang.github.io/layout02/).
 
 ![](https://i.ibb.co/dbNpMVc/Screen-Shot-2019-03-26-at-5-05-09-PM.png)
 
